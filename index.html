@@ -439,6 +439,24 @@ body.blackout-mode .su-back:hover{border-color:rgba(255,23,68,.6);color:var(--te
 body.light-mode.blackout-mode .su-back{border-color:rgba(180,0,30,.35);color:rgba(28,10,16,.7);}
 body.light-mode.blackout-mode .su-back:hover{border-color:rgba(200,0,30,.6);color:#1C0A10;background:rgba(180,0,30,.07);}
 
+/* mode toggle in setup topbar */
+.su-theme-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:6px;
+  border:1px solid var(--border);background:transparent;
+  cursor:pointer;transition:all .18s;color:var(--muted);flex-shrink:0;
+}
+.su-theme-btn:hover{background:var(--surface);color:var(--text);border-color:var(--text);}
+.su-theme-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:opacity .2s;}
+body.blackout-mode .su-theme-btn{border-color:rgba(255,23,68,.3);color:rgba(240,234,245,.65);}
+body.blackout-mode .su-theme-btn:hover{border-color:rgba(255,23,68,.6);color:var(--text);background:rgba(255,23,68,.07);}
+body.light-mode.blackout-mode .su-theme-btn{border-color:rgba(180,0,30,.35);color:rgba(28,10,16,.7);}
+body.light-mode.blackout-mode .su-theme-btn:hover{border-color:rgba(200,0,30,.6);color:#1C0A10;background:rgba(180,0,30,.07);}
+body.light-mode .su-theme-btn{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.55);}
+body.light-mode .su-theme-btn:hover{border-color:rgba(0,0,0,.35);color:#0E0D0C;background:rgba(0,0,0,.05);}
+body.neon-mode .su-theme-btn{border-color:rgba(0,245,255,.25);color:rgba(0,245,255,.65);}
+body.neon-mode .su-theme-btn:hover{border-color:rgba(0,245,255,.55);color:#00F5FF;background:rgba(0,245,255,.07);box-shadow:0 0 10px rgba(0,245,255,.12);}
+
 /* step dots */
 .su-dots{display:flex;gap:6px;align-items:center;}
 .su-dot{
@@ -705,6 +723,9 @@ body.light-mode.blackout-mode .player-btn{color:rgba(28,10,16,.4);}
       <div class="su-dot active" id="suDot0"></div>
       <div class="su-dot" id="suDot1"></div>
     </div>
+    <button class="su-theme-btn" id="suThemeBtn" onclick="toggleMode()" title="Cambiar tema">
+      <svg id="suThemeIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
   </div>
 
   <div class="su-steps">
@@ -2271,7 +2292,7 @@ function applyMode(mode){
   const neon=`<polygon points="13 2 3 14 11 14 9 22 21 10 13 10 15 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
   const next = mode==='dark'?'light':mode==='light'?'neon':'dark';
   const icon = next==='light'?sun:next==='neon'?neon:moon;
-  ['modeIcon','spModeIcon'].forEach(id=>{const el=document.getElementById(id);if(el) el.innerHTML=icon;});
+  ['modeIcon','spModeIcon','suThemeIcon'].forEach(id=>{const el=document.getElementById(id);if(el) el.innerHTML=icon;});
   if(idx < deck.length && flipped) showFront();
 }
 function toggleMode(){applyMode(currentMode==='dark'?'light':currentMode==='light'?'neon':'dark');}
