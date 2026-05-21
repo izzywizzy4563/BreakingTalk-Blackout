@@ -247,12 +247,12 @@ body.light-mode.blackout-mode .card-back.wildcard-back .back-swipe{background:li
 
 /* Issue 1 fix: background is now set via JS (darkColor), no override needed */
 /* Normal question cards in light+blackout: dark text on white card */
-body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .q-text,
-body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .cat-lbl{color:var(--text)!important;text-shadow:none!important;}
+body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .q-text{color:#FFFFFF!important;text-shadow:none!important;}
+body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .cat-lbl{color:#FFFFFF!important;text-shadow:none!important;}
 body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .corner-tl,
 body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .corner-tr,
 body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .corner-bl,
-body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .corner-br{color:rgba(28,10,16,.35)!important;}
+body.light-mode.blackout-mode .card-front[data-type="question"]:not(.wc-status):not(.wc-chaos):not(.wc-minigame):not(.wc-drinking):not(.wc-shots):not(.wc-bwildcard) .corner-br{color:rgba(255,255,255,.5)!important;}
 
 /* Wildcard shimmer adapts to crimson palette in light+blackout */
 body.light-mode.blackout-mode .wildcard-q-shine{background:linear-gradient(108deg,#CC0020 0%,#FF4520 25%,#FF8060 45%,#CC0020 65%,#FF4520 85%,#CC0020 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:none;animation:blackoutShimmer 2.6s linear infinite;}
