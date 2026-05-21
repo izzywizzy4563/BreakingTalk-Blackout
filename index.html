@@ -25,7 +25,7 @@ body.neon-mode .scanlines{opacity:1;}
 #splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:200;transition:background .4s;}
 body.light-mode #splash{background:#FEFCF8;}body.neon-mode #splash{background:#050410;}
 .sp-deco{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.sp-ghost{position:absolute;width:56px;height:80px;border-radius:10px;border:1px solid rgba(238,232,255,.08);background:rgba(238,232,255,.025);transition:border-color .4s,background .4s,box-shadow .4s;}
+.sp-ghost{position:absolute;width:62px;height:88px;border-radius:12px;border:1px solid rgba(238,232,255,.1);background:rgba(238,232,255,.03);box-shadow:0 4px 24px rgba(0,0,0,.18);transition:border-color .4s,background .4s,box-shadow .4s;}
 body.light-mode .sp-ghost{border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.02);}
 body.neon-mode .sp-ghost{border-color:rgba(0,245,255,.15);background:rgba(0,245,255,.03);box-shadow:0 0 12px rgba(0,245,255,.08);}
 .sp-ghost:nth-child(1){top:5%;left:4%;transform:rotate(-17deg);animation:floatCard 7s ease-in-out infinite}
@@ -64,11 +64,20 @@ body.neon-mode .sp-title{color:#EEE8FF;text-shadow:0 0 30px rgba(0,245,255,.3),0
 body.light-mode .sp-title-accent{background:linear-gradient(135deg,#0066cc 0%,#6600cc 50%,#cc0066 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:none;}
 .sp-rule{width:40px;height:1px;background:linear-gradient(90deg,#00F5FF,#FF00E8);margin:18px auto 14px;box-shadow:0 0 12px rgba(0,245,255,.5);animation:fadeUp .7s .14s ease both;position:relative;z-index:1;transition:background .4s,box-shadow .4s;}
 body.light-mode .sp-rule{background:linear-gradient(90deg,#0066cc,#cc0066);box-shadow:none;}
-.sp-sub{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--muted);text-align:center;max-width:220px;line-height:1.7;margin-bottom:36px;animation:fadeUp .7s .2s ease both;position:relative;z-index:1;transition:color .4s;}
+.sp-sub{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--muted);text-align:center;max-width:240px;line-height:1.7;margin-bottom:20px;animation:fadeUp .7s .2s ease both;position:relative;z-index:1;transition:color .4s;}
 .sp-play{font-family:'Orbitron',sans-serif;font-weight:800;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#050410;background:linear-gradient(135deg,#00F5FF,#A855F7);border:none;padding:16px 52px;cursor:pointer;border-radius:8px;box-shadow:0 0 32px rgba(0,245,255,.35),0 0 60px rgba(168,85,247,.2),0 8px 32px rgba(0,0,0,.5);transition:all .22s;animation:fadeUp .7s .27s ease both;position:relative;z-index:1;}
 .sp-play:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 0 48px rgba(0,245,255,.5),0 0 80px rgba(168,85,247,.3),0 12px 40px rgba(0,0,0,.6);}
 body.light-mode .sp-play{background:#0E0D0C;color:#F6F4EE;box-shadow:0 8px 32px rgba(0,0,0,.18);}
 body.light-mode .sp-play:hover{background:#2A2826;box-shadow:0 8px 32px rgba(0,0,0,.25);}
+.sp-badges{display:flex;align-items:center;gap:10px;margin-bottom:28px;animation:fadeUp .7s .22s ease both;position:relative;z-index:1;}
+.sp-badge{display:flex;align-items:center;gap:5px;font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(238,232,255,.4);transition:color .3s;}
+.sp-badge svg{width:11px;height:11px;opacity:.7;flex-shrink:0;}
+.sp-badge-sep{font-family:'Orbitron',sans-serif;font-size:8px;color:rgba(238,232,255,.2);}
+body.light-mode .sp-badge{color:rgba(0,0,0,.35);}
+body.light-mode .sp-badge-sep{color:rgba(0,0,0,.15);}
+body.neon-mode .sp-badge{color:rgba(0,245,255,.4);}
+body.neon-mode .sp-badge-sep{color:rgba(0,245,255,.2);}
+.blackout-toggle{display:none !important;}
 .blackout-toggle{display:none !important;}
 .blackout-toggle::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:translateX(-130%);transition:transform 480ms cubic-bezier(.2,.8,.2,1);}
 .blackout-toggle:hover::before{transform:translateX(130%);}
@@ -273,25 +282,21 @@ body.light-mode.blackout-mode .sw-no{background:rgba(255,255,255,.95);border-col
 /* Ambient gradient: soft crimson blush instead of full dark */
 body.light-mode.blackout-mode::before{opacity:.55;background:radial-gradient(ellipse 70% 45% at 50% 0%,rgba(255,23,68,.09),transparent 60%),radial-gradient(ellipse 50% 35% at 15% 100%,rgba(180,0,40,.07),transparent 55%);}
 
-/* Splash screen adjustments — light+blackout */
-body.light-mode.blackout-mode #splash{background:#F9F0F2;}
-body.light-mode.blackout-mode .sp-eyebrow{color:rgba(160,0,30,.55);}
-body.light-mode.blackout-mode .sp-title{color:#1C0A10;text-shadow:none;}
-body.light-mode.blackout-mode .sp-title-accent{background:linear-gradient(135deg,#CC0020 0%,#880040 50%,#CC0020 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:none;}
-body.light-mode.blackout-mode .sp-sub{color:rgba(28,10,16,.6);}
-body.light-mode.blackout-mode .sp-rule{background:linear-gradient(90deg,#CC0020,#880040);box-shadow:none;}
-body.light-mode.blackout-mode .sp-play{background:#CC0020;color:#FFFFFF;box-shadow:0 4px 20px rgba(200,0,30,.25);}
-body.light-mode.blackout-mode .sp-play:hover{background:#FF1744;box-shadow:0 6px 24px rgba(200,0,30,.35);}
-/* Lang + mode buttons: dark text on light bg */
-body.light-mode.blackout-mode .lang-btn{border-color:rgba(180,0,30,.3);color:rgba(28,10,16,.7);background:rgba(180,0,30,.05);}
-body.light-mode.blackout-mode .lang-btn:hover{border-color:rgba(200,0,30,.55);color:#1C0A10;background:rgba(180,0,30,.1);}
-body.light-mode.blackout-mode .lang-btn.active{background:#CC0020;color:#FFFFFF;border-color:#CC0020;box-shadow:none;}
-body.light-mode.blackout-mode .sp-mode-btn{border-color:rgba(180,0,30,.3);color:rgba(28,10,16,.65);background:rgba(180,0,30,.05);}
-body.light-mode.blackout-mode .sp-mode-btn:hover{border-color:rgba(200,0,30,.5);color:#1C0A10;background:rgba(180,0,30,.1);}
-body.light-mode.blackout-mode .blackout-toggle{border-color:rgba(200,0,30,.45);color:rgba(180,0,30,.8);}
-body.light-mode.blackout-mode .blackout-toggle.active{background:rgba(200,0,30,.1);border-color:rgba(200,0,30,.7);color:#CC0020;box-shadow:none;text-shadow:none;}
-body.light-mode.blackout-mode .blackout-warning{color:rgba(180,0,30,.6);}
-body.light-mode.blackout-mode .sp-ghost{border-color:rgba(200,0,30,.15);background:rgba(200,0,30,.03);}
+/* Splash screen: light+blackout → keep light-mode aesthetics, ignore blackout */
+body.light-mode.blackout-mode #splash{background:#FEFCF8;}
+body.light-mode.blackout-mode .sp-eyebrow{color:rgba(0,0,0,.3);}
+body.light-mode.blackout-mode .sp-title{color:#0E0D0C;text-shadow:none;}
+body.light-mode.blackout-mode .sp-title-accent{background:linear-gradient(135deg,#0066cc 0%,#6600cc 50%,#cc0066 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:none;}
+body.light-mode.blackout-mode .sp-sub{color:rgba(0,0,0,.5);}
+body.light-mode.blackout-mode .sp-rule{background:linear-gradient(90deg,#0066cc,#cc0066);box-shadow:none;}
+body.light-mode.blackout-mode .sp-play{background:#0E0D0C;color:#F6F4EE;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+body.light-mode.blackout-mode .sp-play:hover{background:#2A2826;box-shadow:0 8px 32px rgba(0,0,0,.25);}
+body.light-mode.blackout-mode .lang-btn{border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.6);background:rgba(0,0,0,.04);}
+body.light-mode.blackout-mode .lang-btn:hover{border-color:rgba(0,0,0,.3);color:#000;background:rgba(0,0,0,.08);}
+body.light-mode.blackout-mode .lang-btn.active{background:#0E0D0C;color:#F6F4EE;border-color:#0E0D0C;}
+body.light-mode.blackout-mode .sp-mode-btn{border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.6);background:rgba(0,0,0,.04);}
+body.light-mode.blackout-mode .sp-mode-btn:hover{border-color:rgba(0,0,0,.3);color:#000;background:rgba(0,0,0,.08);}
+body.light-mode.blackout-mode .sp-ghost{border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.02);}
 /* ═══════════════════════════════════════════════════════════════ */
 
 .prog-wrap{width:var(--card-w);margin-bottom:10px;animation:fadeUp .5s .1s ease both;}
@@ -335,21 +340,22 @@ body.blackout-mode .terminate-btn:hover{border-color:#FF1744!important;color:#FF
 #doneStats h3{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
 
 body.blackout-mode::before{background:radial-gradient(ellipse 70% 45% at 50% 0%,rgba(255,23,68,.22),transparent 60%),radial-gradient(ellipse 55% 40% at 15% 100%,rgba(109,0,37,.28),transparent 55%),radial-gradient(ellipse 50% 35% at 88% 85%,rgba(255,109,0,.14),transparent 50%),linear-gradient(170deg,rgba(255,23,68,.10) 0%,transparent 38%,rgba(109,0,37,.12) 100%);animation:blackoutDrift 14s ease-in-out infinite alternate;}
-body.blackout-mode #splash{background:#040208;}
-body.blackout-mode .sp-ghost{border-color:rgba(255,23,68,.22);background:rgba(255,23,68,.03);box-shadow:0 0 20px rgba(255,23,68,.09);}
+/* Splash screen: dark blackout → keep dark-mode aesthetics, ignore blackout */
+body.blackout-mode #splash{background:var(--bg);}
+body.blackout-mode .sp-ghost{border-color:rgba(238,232,255,.08);background:rgba(238,232,255,.025);box-shadow:none;}
 body.blackout-mode .ghost{border-color:rgba(255,23,68,.2);background:rgba(255,23,68,.03);}
-body.blackout-mode .sp-eyebrow{color:rgba(255,23,68,.55);text-shadow:0 0 8px rgba(255,23,68,.3);}
-body.blackout-mode .sp-title{color:#F0EAF5;text-shadow:0 0 22px rgba(255,23,68,.38),0 0 60px rgba(109,0,37,.25);}
-body.blackout-mode .sp-title-accent{background:linear-gradient(135deg,#FF1744 0%,#FF6D00 50%,#FF1744 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(255,23,68,.4));}
-body.blackout-mode .sp-sub{color:rgba(240,234,245,.48);}
-body.blackout-mode .sp-rule{background:#FF1744;box-shadow:0 0 18px rgba(255,23,68,.6);}
-body.blackout-mode .sp-play{background:#FF1744;color:#06030A;box-shadow:0 0 28px rgba(255,23,68,.38),0 4px 20px rgba(0,0,0,.5);font-weight:800;}
-body.blackout-mode .sp-play:hover{background:#FF4569;box-shadow:0 0 42px rgba(255,23,68,.55);}
-body.blackout-mode .lang-btn{border-color:rgba(255,23,68,.45);color:rgba(240,234,245,.75);background:rgba(255,23,68,.08);}
-body.blackout-mode .lang-btn:hover{border-color:rgba(255,23,68,.75);color:#F0EAF5;background:rgba(255,23,68,.16);box-shadow:0 0 14px rgba(255,23,68,.2);}
-body.blackout-mode .lang-btn.active{background:#FF1744;border-color:#FF1744;color:#06030A;box-shadow:0 0 18px rgba(255,23,68,.45);}
-body.blackout-mode .sp-mode-btn{background:rgba(255,23,68,.10);border-color:rgba(255,23,68,.45);color:rgba(240,234,245,.80);}
-body.blackout-mode .sp-mode-btn:hover{background:rgba(255,23,68,.20);border-color:rgba(255,23,68,.75);color:#F0EAF5;box-shadow:0 0 16px rgba(255,23,68,.25);}
+body.blackout-mode .sp-eyebrow{color:rgba(238,232,255,.35);text-shadow:none;}
+body.blackout-mode .sp-title{color:var(--text);text-shadow:none;}
+body.blackout-mode .sp-title-accent{background:linear-gradient(135deg,#00F5FF 0%,#A855F7 50%,#FF00E8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px rgba(0,245,255,.35));}
+body.blackout-mode .sp-sub{color:var(--muted);}
+body.blackout-mode .sp-rule{background:linear-gradient(90deg,#00F5FF,#FF00E8);box-shadow:0 0 12px rgba(0,245,255,.5);}
+body.blackout-mode .sp-play{background:linear-gradient(135deg,#00F5FF,#A855F7);color:#050410;box-shadow:0 0 32px rgba(0,245,255,.35),0 8px 32px rgba(0,0,0,.5);font-weight:800;}
+body.blackout-mode .sp-play:hover{box-shadow:0 0 48px rgba(0,245,255,.5),0 12px 40px rgba(0,0,0,.6);}
+body.blackout-mode .lang-btn{border-color:rgba(238,232,255,.2);color:rgba(238,232,255,.65);background:rgba(238,232,255,.08);}
+body.blackout-mode .lang-btn:hover{border-color:rgba(238,232,255,.45);color:#fff;background:rgba(238,232,255,.12);}
+body.blackout-mode .lang-btn.active{background:var(--card-cream);border-color:var(--card-cream);color:var(--bg);}
+body.blackout-mode .sp-mode-btn{background:rgba(238,232,255,.08);border-color:rgba(238,232,255,.2);color:rgba(238,232,255,.65);}
+body.blackout-mode .sp-mode-btn:hover{border-color:rgba(238,232,255,.45);color:#fff;background:rgba(238,232,255,.12);}
 body.blackout-mode .home-btn{border-color:rgba(255,23,68,.3);color:rgba(240,234,245,.65);}
 body.blackout-mode .home-btn:hover{border-color:rgba(255,23,68,.6);color:#F0EAF5;background:rgba(255,23,68,.07);}
 body.blackout-mode .mode-toggle{border-color:rgba(255,23,68,.35);color:rgba(240,234,245,.7);}
@@ -396,24 +402,8 @@ body.blackout-collapse #splash{animation:blackoutScreenShake 5s steps(2,end) inf
 @keyframes blackoutFlicker{0%,90%,100%{opacity:1}91%{opacity:.68}93%{opacity:1}95%{opacity:.80}97%{opacity:1}}
 @keyframes blackoutScreenShake{0%,92%,100%{transform:translate(0)}93%{transform:translate(-2px,1px)}95%{transform:translate(2px,-1px)}97%{transform:translate(-1px,2px)}}
 
-/* Botones del splash screen en light-mode + blackout-mode */
-body.light-mode.blackout-mode .lang-btn,
-body.light-mode.blackout-mode .sp-mode-btn {
-  border-color: rgba(220, 0, 40, 0.25);
-  color: rgba(200, 0, 40, 0.7);
-  background: rgba(220, 0, 40, 0.06);
-}
-body.light-mode.blackout-mode .lang-btn:hover,
-body.light-mode.blackout-mode .sp-mode-btn:hover {
-  border-color: rgba(220, 0, 40, 0.5);
-  color: #CC0020;
-  background: rgba(220, 0, 40, 0.12);
-}
-body.light-mode.blackout-mode .lang-btn.active {
-  background: #CC0020;
-  color: #FFFFFF;
-  border-color: #CC0020;
-}
+/* Botones del splash: light+blackout → mismos que light puro */
+/* (ya cubierto arriba, bloque vacío para no duplicar) */
 
 
 /* ═══════════════════════════════════════════════════════════════
@@ -688,6 +678,17 @@ body.light-mode.blackout-mode .player-btn{color:rgba(28,10,16,.4);}
   <div class="sp-title">Breaking<span class="sp-title-accent">Talk</span></div>
   <div class="sp-rule"></div>
   <div class="sp-sub" id="spSub">Questions that go deeper than small talk.</div>
+  <div class="sp-badges">
+    <span class="sp-badge sp-badge-bt" id="spBadgeBT">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="8" y1="5" x2="8" y2="11"/><line x1="5" y1="8" x2="11" y2="8"/></svg>
+      <span id="spBadgeBTLabel">Breaking Talk</span>
+    </span>
+    <span class="sp-badge-sep">·</span>
+    <span class="sp-badge sp-badge-bk" id="spBadgeBK">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2 L14 6 L14 10 L8 14 L2 10 L2 6 Z"/></svg>
+      <span id="spBadgeBKLabel">Blackout</span>
+    </span>
+  </div>
   <button class="sp-play" id="spPlay" onclick="startGame()">Play</button>
   <button class="blackout-toggle" id="blackoutToggle" onclick="toggleBlackoutMode()" aria-pressed="false">
     <span class="bt-icon">⬡</span><span id="btLabel">BLACKOUT MODE</span>
@@ -1964,6 +1965,13 @@ function suPickMode(m) {
   suMode = m;
   document.getElementById('suCardBT').classList.toggle('chosen', m==='bt');
   document.getElementById('suCardBK').classList.toggle('chosen', m==='bk');
+  // Apply colorimetry immediately on pick
+  const wantBK = m === 'bk';
+  document.body.classList.toggle('blackout-mode', wantBK);
+  blackoutMode = wantBK;
+  localStorage.setItem('bt-blackout-mode', wantBK ? '1' : '0');
+  if (wantBK) buildBlackoutBanks(currentLanguage);
+  updateBlackoutToggleUI();
 }
 
 function suBuildCatGrid() {
@@ -2317,6 +2325,8 @@ function updateUITexts() {
   document.getElementById('spEyebrow').textContent=t.eyebrow;
   document.getElementById('spSub').textContent=t.subtitle;
   document.getElementById('spPlay').textContent=t.play;
+  const bbl=document.getElementById('spBadgeBTLabel'); if(bbl) bbl.textContent=currentLanguage==='ES'?'Breaking Talk':'Breaking Talk';
+  const bkl=document.getElementById('spBadgeBKLabel'); if(bkl) bkl.textContent=currentLanguage==='ES'?'Blackout':'Blackout';
   document.getElementById('homeLabel').textContent=t.home;
   document.getElementById('skipLabel').textContent=t.skip;
   document.getElementById('nextLabel').textContent=t.next;
