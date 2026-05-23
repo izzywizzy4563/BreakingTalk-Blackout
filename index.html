@@ -1494,8 +1494,8 @@ const translations = {
     wildcardReveal:'Reveal wildcard',blackoutReveal:'REVEAL',
     blackoutOn:'🔥 BLACKOUT ON',blackoutToggle:'BLACKOUT MODE',
     blackoutWarning:'🔞 Adults only — drink responsibly.',
-    blackoutPhaseWarmup:'WARMING UP',blackoutPhaseTipsy:'TIPSY',
-    blackoutPhaseDrunk:'DRUNK',blackoutPhaseCollapsed:'COLLAPSED',
+    blackoutPhaseSober:'SOBER',blackoutPhaseWarmup:'WARMUP',blackoutPhaseBuzzed:'BUZZED',
+    blackoutPhaseTipsy:'TIPSY',blackoutPhaseDrunk:'DRUNK',blackoutPhaseWasted:'WASTED',
     blackoutPhaseBlackout:'BLACKOUT',blackoutPhaseTranscending:'TRANSCENDING',
     groupEvent:'GROUP EVENT',statusEffect:'STATUS EFFECT',
     chaosEvent:'CHAOS EVENT',miniGame:'MINIGAME',
@@ -1515,8 +1515,8 @@ const translations = {
     wildcardReveal:'Revelar Plot Twist',blackoutReveal:'REVELAR',
     blackoutOn:'🔥 BLACKOUT ACTIVADO',blackoutToggle:'MODO BLACKOUT',
     blackoutWarning:'🔞 Solo adultos — toma con responsabilidad.',
-    blackoutPhaseWarmup:'CALENTANDO',blackoutPhaseTipsy:'YA SINTIENDO',
-    blackoutPhaseDrunk:'BORRACHO',blackoutPhaseCollapsed:'COLAPSADO',
+    blackoutPhaseSober:'SOBRIO',blackoutPhaseWarmup:'CALENTANDO',blackoutPhaseBuzzed:'JALANDO',
+    blackoutPhaseTipsy:'SINTIENDO',blackoutPhaseDrunk:'BORRACHO',blackoutPhaseWasted:'FUNDIDO',
     blackoutPhaseBlackout:'BLACKOUT',blackoutPhaseTranscending:'TRASCENDIENDO',
     groupEvent:'EVENTO GRUPAL',statusEffect:'EFECTO DE ESTADO',
     chaosEvent:'EVENTO CHAOS',miniGame:'MINIJUEGO',
@@ -1546,6 +1546,7 @@ let selectedCatsState = null;
 let blackoutCardSeq = 0;
 let activeQ = [], activeCAT = {}, activeWildcards = [];
 
+
 let playerShots = {};
 let playerSkipStreak = {};
 let playerQuestions = {};
@@ -1568,8 +1569,8 @@ function getCatData(c) {
 
 const BLACKOUT_CAT = {
   'BLACKOUT':{neonColor:'#FF1744',neonBg:'linear-gradient(135deg,#1E0006 0%,#0A0208 50%,#280008 100%)',darkColor:'#1E0006',color:'#C8102E',icon:'💀',wcClass:'wc-bwildcard'},
-  'EMOTIONAL DAMAGE':{neonColor:'#FF6D00',neonBg:'linear-gradient(135deg,#1F0800 0%,#2B0E00 50%,#1F0500 100%)',darkColor:'#1F0500',color:'#D84315',icon:'🩸',wcClass:'wc-bwildcard'},
-  'DAÑO EMOCIONAL':{neonColor:'#FF6D00',neonBg:'linear-gradient(135deg,#1F0800 0%,#2B0E00 50%,#1F0500 100%)',darkColor:'#1F0500',color:'#D84315',icon:'🩸',wcClass:'wc-bwildcard'},
+  'EMOTIONAL DAMAGE':{neonColor:'#FF6D00',neonBg:'linear-gradient(135deg,#1F0800 0%,#2B0E00 50%,#1F0500 100%)',darkColor:'#1F0500',color:'#D84315',icon:'🙂💔',wcClass:'wc-bwildcard'},
+  'DAÑO EMOCIONAL':{neonColor:'#FF6D00',neonBg:'linear-gradient(135deg,#1F0800 0%,#2B0E00 50%,#1F0500 100%)',darkColor:'#1F0500',color:'#D84315',icon:'🙂💔',wcClass:'wc-bwildcard'},
   'DRINKING':{neonColor:'#FFB800',neonBg:'linear-gradient(135deg,#1A1000 0%,#2B1900 50%,#1A0E00 100%)',darkColor:'#1A0E00',color:'#D49A17',icon:'🥃',wcClass:'wc-drinking'},
   'TOMADERA':{neonColor:'#FFB800',neonBg:'linear-gradient(135deg,#1A1000 0%,#2B1900 50%,#1A0E00 100%)',darkColor:'#1A0E00',color:'#D49A17',icon:'🥃',wcClass:'wc-drinking'},
   'SHOTS':{neonColor:'#FF3F8D',neonBg:'linear-gradient(135deg,#1A0010 0%,#2D001A 50%,#1A0010 100%)',darkColor:'#1A0010',color:'#C2185B',icon:'⚡',wcClass:'wc-shots'},
@@ -1594,7 +1595,8 @@ function isSpecial(item){
 function showFrontImmediately(item){
   if(!item) return false;
   const c=item.c||'';
-  return (c==='BLACKOUT'||c==='EMOTIONAL DAMAGE'||c==='DAÑO EMOCIONAL');
+  const t=item.type||'';
+  return (c==='BLACKOUT'||c==='EMOTIONAL DAMAGE'||c==='DAÑO EMOCIONAL'||t==='emotional_damage');
 }
 function isGroupCard(item){
   if(!item) return false;
@@ -1642,14 +1644,14 @@ function parseShotInfo(text, category) {
 // ══════════════════════════════════════════════════════════════════
 //  CONSTRUIR activeBlackoutBanks desde BANKS.blackout
 // ══════════════════════════════════════════════════════════════════
-let activeBlackoutBanks = {drinking:[],shots:[],group:[],groupshots:[],blackout:[],story:[],status:[],mini:[],chaos:[],wildcards:[]};
+let activeBlackoutBanks = {drinking:[],shots:[],group:[],groupshots:[],blackout:[],story:[],emotional_damage:[],status:[],mini:[],chaos:[],wildcards:[]};
 
 function buildBlackoutBanks(lang) {
   const src = BANKS.blackout[lang];
-  const out = {drinking:[],shots:[],group:[],groupshots:[],blackout:[],story:[],status:[],mini:[],chaos:[],wildcards:[]};
+  const out = {drinking:[],shots:[],group:[],groupshots:[],blackout:[],story:[],emotional_damage:[],status:[],mini:[],chaos:[],wildcards:[]};
   const catMap = {
     DRINKING:'drinking', TOMADERA:'drinking', SHOTS:'shots', GROUP_DRINKING:'group', TOMADERA_GRUPAL:'group',
-    GROUP_SHOTS:'groupshots', BLACKOUT:'blackout', EMOTIONAL_DAMAGE:'story', DAÑO_EMOCIONAL:'story',
+    GROUP_SHOTS:'groupshots', BLACKOUT:'blackout', EMOTIONAL_DAMAGE:'emotional_damage', DAÑO_EMOCIONAL:'emotional_damage',
     STATUS:'status', MINIGAME:'mini', MINIJUEGO:'mini', CHAOS_EVENT:'chaos', EVENTO_CHAOS:'chaos', WILDCARD:'wildcards'
   };
   for (const [key, arr] of Object.entries(src)) {
@@ -1674,88 +1676,133 @@ function buildBlackoutBanks(lang) {
 // ══════════════════════════════════════════════════════════════════
 //  FASES POR JUGADOR
 // ══════════════════════════════════════════════════════════════════
-function getPlayerPhase(playerNum) {
-  const s = playerShots[playerNum] || 0;
-  const t = translations[currentLanguage];
-  if (s >= 30) return {key:'transcending', label:t.blackoutPhaseTranscending};
-  if (s >= 20) return {key:'blackout', label:t.blackoutPhaseBlackout};
-  if (s >= 12) return {key:'collapsed', label:t.blackoutPhaseCollapsed};
-  if (s >= 5)  return {key:'drunk', label:t.blackoutPhaseDrunk};
-  if (s >= 1.5) return {key:'tipsy', label:t.blackoutPhaseTipsy};
-  return {key:'warmup', label:t.blackoutPhaseWarmup};
+// 8-level phase system
+// 0–1.99: Sober | 2–3.99: Warmup | 4–6.99: Buzzed | 7–9.99: Tipsy
+// 10–13.99: Drunk | 14–17.99: Wasted | 18–21.99: Blackout | 22+: Transcending
+function _phaseFromShots(s, t) {
+  if (s >= 22) return {key:'transcending', label:t.blackoutPhaseTranscending, emoji:'✨'};
+  if (s >= 18) return {key:'blackout',     label:t.blackoutPhaseBlackout,     emoji:'☠️'};
+  if (s >= 14) return {key:'wasted',       label:t.blackoutPhaseWasted,       emoji:'🚨'};
+  if (s >= 10) return {key:'drunk',        label:t.blackoutPhaseDrunk,        emoji:'🍻'};
+  if (s >= 7)  return {key:'tipsy',        label:t.blackoutPhaseTipsy,        emoji:'🥴'};
+  if (s >= 4)  return {key:'buzzed',       label:t.blackoutPhaseBuzzed,       emoji:'😌'};
+  if (s >= 2)  return {key:'warmup',       label:t.blackoutPhaseWarmup,       emoji:'🔥'};
+  return             {key:'sober',         label:t.blackoutPhaseSober,        emoji:'😐'};
 }
-
+function getPlayerPhase(playerNum) {
+  const t = translations[currentLanguage];
+  return _phaseFromShots(playerShots[playerNum] || 0, t);
+}
 function getPlayerPhaseFromShots(shots) {
   const t = translations[currentLanguage];
-  if (shots >= 30) return {key:'transcending', label:t.blackoutPhaseTranscending};
-  if (shots >= 20) return {key:'blackout', label:t.blackoutPhaseBlackout};
-  if (shots >= 12) return {key:'collapsed', label:t.blackoutPhaseCollapsed};
-  if (shots >= 5)  return {key:'drunk', label:t.blackoutPhaseDrunk};
-  if (shots >= 1.5) return {key:'tipsy', label:t.blackoutPhaseTipsy};
-  return {key:'warmup', label:t.blackoutPhaseWarmup};
+  return _phaseFromShots(shots || 0, t);
 }
 
 function updateBlackoutPhase() {
-  document.body.classList.remove('blackout-warmup','blackout-tipsy','blackout-drunk','blackout-collapsed','blackout-blackout','blackout-transcending');
+  document.body.classList.remove(
+    'blackout-sober','blackout-warmup','blackout-buzzed',
+    'blackout-tipsy','blackout-drunk','blackout-wasted',
+    'blackout-blackout','blackout-transcending'
+  );
   const el = document.getElementById('blackoutPhase');
-  if (!blackoutMode) { if(el) el.textContent=''; return; }
+  if (!blackoutMode) { if (el) el.textContent = ''; return; }
   const phase = getPlayerPhase(player);
-  document.body.classList.add('blackout-'+phase.key);
-  if(el) el.textContent = phase.label;
+  document.body.classList.add('blackout-' + phase.key);
+  if (el) el.textContent = phase.label.replace(/[^\p{L}\s]/gu, '').trim().toUpperCase();
 }
 
 // ══════════════════════════════════════════════════════════════════
 //  INYECCIÓN DINÁMICA POR TURNO Y PRE-BUILD
 // ══════════════════════════════════════════════════════════════════
 let dynamicBanks = {};
-let lastSpecialByPlayer = {};   // {playerId: typeString}
-// ── Soft entropy: track recently seen category "tones" to avoid fatigue ──────
-let recentCategories = [];      // rolling window of last ~5 types drawn
-const RECENT_WINDOW = 5;
+let lastSpecialByPlayer = {};        // {playerId: typeString}
+let lastServedByType = {};           // anti-repeat cross-cycle per type
+let wildcardHistoryByPlayer = {};    // BT wildcard cooling: playerId → array of seen wc texts
+const WILDCARD_COOLDOWN = 2;         // a wildcard won't repeat for same player until 2 different wildcards later
+let recentCategoriesByPlayer = {};   // {playerId: [type, type, ...]} — rolling window per player
+const RECENT_WINDOW = 4;
 
 // ── Curated opening: track how many playable cards have been shown ────────────
 let openingCardsDealt = 0;
-const OPENING_LENGTH = 10; // first 10 playable cards get curated treatment
+const OPENING_LENGTH = 10;
 
 function initDynamicBanks() {
   dynamicBanks = {
-    drinking: shuffle([...activeBlackoutBanks.drinking]),
-    shots: shuffle([...activeBlackoutBanks.shots]),
-    group: shuffle([...activeBlackoutBanks.group]),
-    groupshots: shuffle([...activeBlackoutBanks.groupshots]),
-    blackout: shuffle([...activeBlackoutBanks.blackout]),
-    story: shuffle([...activeBlackoutBanks.story]),
-    status: shuffle([...activeBlackoutBanks.status]),
-    mini: shuffle([...activeBlackoutBanks.mini]),
-    chaos: shuffle([...activeBlackoutBanks.chaos]),
+    drinking:         shuffle([...activeBlackoutBanks.drinking]),
+    shots:            shuffle([...activeBlackoutBanks.shots]),
+    group:            shuffle([...activeBlackoutBanks.group]),
+    groupshots:       shuffle([...activeBlackoutBanks.groupshots]),
+    blackout:         shuffle([...activeBlackoutBanks.blackout]),
+    story:            shuffle([...activeBlackoutBanks.story]),
+    emotional_damage: shuffle([...activeBlackoutBanks.emotional_damage]),
+    status:           shuffle([...activeBlackoutBanks.status]),
+    mini:             shuffle([...activeBlackoutBanks.mini]),
+    chaos:            shuffle([...activeBlackoutBanks.chaos]),
   };
-  lastSpecialByPlayer = {};
-  recentCategories = [];
-  openingCardsDealt = 0;
+  lastSpecialByPlayer      = {};
+  lastServedByType         = {};
+  recentCategoriesByPlayer = {};
+  wildcardHistoryByPlayer  = {};
+  openingCardsDealt        = 0;
 }
 
-function drawDynamic(type) {
+function drawDynamic(type, playerId) {
   const pool = dynamicBanks[type];
   if (!pool || pool.length === 0) return null;
+
   const card = pool.splice(0, 1)[0];
+
+  // ── Anti-repeat cross-cycle: on pool exhaustion, reshuffle and ensure
+  //    the last-served card doesn't appear first in the new cycle.
   if (pool.length === 0) {
-    const fresh = shuffle([...activeBlackoutBanks[type]]);
-    dynamicBanks[type] = fresh;
+    const freshRaw = [...activeBlackoutBanks[type]];
+    const lastServed = lastServedByType[type];
+    if (lastServed && freshRaw.length > 1) {
+      const idxSame = freshRaw.findIndex(c => c.q === lastServed.q);
+      if (idxSame === 0) {
+        freshRaw.push(freshRaw.shift());
+      } else if (idxSame > 0) {
+        const [moved] = freshRaw.splice(idxSame, 1);
+        freshRaw.push(moved);
+      }
+    }
+    dynamicBanks[type] = shuffle(freshRaw);
   }
-  // Track for soft entropy
-  recentCategories.push(type);
-  if (recentCategories.length > RECENT_WINDOW) recentCategories.shift();
-  const normalizedType = type==='shots'?'shots':type==='groupshots'?'groupshots':type==='status'?'status':type==='mini'?'mini':type==='chaos'?'chaos':type;
+
+  // Track last served for next cycle's anti-repeat
+  lastServedByType[type] = card;
+
+  // ── Per-player soft entropy ───────────────────────────────────────────────
+  if (playerId !== undefined && playerId !== null) {
+    if (!recentCategoriesByPlayer[playerId]) recentCategoriesByPlayer[playerId] = [];
+    recentCategoriesByPlayer[playerId].push(type);
+    if (recentCategoriesByPlayer[playerId].length > RECENT_WINDOW) {
+      recentCategoriesByPlayer[playerId].shift();
+    }
+  }
+
+  const normalizedType = type === 'shots' ? 'shots'
+    : type === 'groupshots' ? 'groupshots'
+    : type === 'status'     ? 'status'
+    : type === 'mini'       ? 'mini'
+    : type === 'chaos'      ? 'chaos'
+    : type;
   return {...card, type: normalizedType, blackout: true, _bid: ++blackoutCardSeq};
 }
 
-// ── Soft entropy helper: how many times did this type appear recently? ────────
-function recentCount(type) {
-  return recentCategories.filter(t => t === type).length;
-}
-// Returns true if this type is "cooling down" (seen too recently)
-function isCooling(type, maxRecent) {
-  return recentCount(type) >= maxRecent;
+// ── Per-player soft entropy helpers ──────────────────────────────────────────
+// isCooling checks the tail of a player's history (most recent cards first),
+// stopping as soon as it has seen maxRecent items — so a type seen 3 cards ago
+// doesn't block forever, only within the last maxRecent slots.
+function isCooling(type, maxRecent, playerId) {
+  if (playerId === undefined || playerId === null) return false;
+  const arr = recentCategoriesByPlayer[playerId] || [];
+  let count = 0;
+  for (let i = arr.length - 1; i >= 0 && count < maxRecent; i--) {
+    if (arr[i] === type) return true;
+    count++;
+  }
+  return false;
 }
 
 // ── Check if a player has active effects that block drinking cards ─────────────
@@ -1765,100 +1812,136 @@ function playerHasBlockingEffect(playerId) {
   return effects.some(e => e.blocksDrinking === true);
 }
 
-// ── State-aware card selection with soft entropy + effect exclusion ────────────
+// ── State-aware card selection with per-player soft entropy + effect exclusion ─
 function shouldInjectBlackoutCard(currentPlayer) {
   if (!blackoutMode) return null;
-  const phase = getPlayerPhase(currentPlayer).key;
+  const phase       = getPlayerPhase(currentPlayer).key;
   const lastSpecial = lastSpecialByPlayer[currentPlayer];
   const hasBlockingEffect = playerHasBlockingEffect(currentPlayer);
+  const p = currentPlayer; // shorthand for passing to isCooling / drawDynamic
   const r = Math.random();
-  let injected = null;
+  let injected    = null;
   let isSpecialCard = false;
 
-  // ── Helper: pick drinking only if player has no blocking effect and it's not overcooled
-  const canDrink  = (type) => !hasBlockingEffect && !isCooling(type, 2);
-  const canShots  = () => canDrink('shots') && lastSpecial !== 'shots';
-  const canGroup  = () => canDrink('group');
-  const canGShots = () => canDrink('groupshots') && lastSpecial !== 'groupshots';
+  // ── Per-player helpers ────────────────────────────────────────────────────
+  // canDrink / canShots / canGroup all check THIS player's recent history only.
+  const canDrink  = (type) => !hasBlockingEffect && !isCooling(type, 2, p);
+  const canShots  = ()     => canDrink('shots')      && lastSpecial !== 'shots';
+  const canGroup  = ()     => !hasBlockingEffect      && !isCooling('group', 1, p); // group now has cooldown
+  const canGShots = ()     => canDrink('groupshots') && lastSpecial !== 'groupshots';
 
   switch (phase) {
 
-    // ── WARMUP: social sync, light drinking, no overload ──────────────────────
-    case 'warmup':
-      if (r < 0.50 && canDrink('drinking')) {
-        injected = drawDynamic('drinking');
-      } else if (r < 0.65 && canShots()) {
-        injected = drawDynamic('shots'); isSpecialCard = true;
-      } else if (r < 0.78 && canGroup()) {
-        injected = drawDynamic('group');
+    // ── SOBER: mostly normal questions, very rare drinking ─────────────────────
+    case 'sober':
+      if (r < 0.30 && canDrink('drinking')) {
+        injected = drawDynamic('drinking', p);
+      } else if (r < 0.42 && canGroup()) {
+        injected = drawDynamic('group', p);
       }
-      // If player has blocking effect, skip drinking entirely — let normal Q land
+      break;
+
+    // ── WARMUP: social drinking starts ────────────────────────────────────────
+    case 'warmup':
+      if (r < 0.45 && canDrink('drinking')) {
+        injected = drawDynamic('drinking', p);
+      } else if (r < 0.60 && canShots()) {
+        injected = drawDynamic('shots', p); isSpecialCard = true;
+      } else if (r < 0.75 && canGroup()) {
+        injected = drawDynamic('group', p);
+      }
+      break;
+
+    // ── BUZZED: first real buzz, status enters, light chaos ───────────────────
+    case 'buzzed':
+      if (r < 0.20 && lastSpecial !== 'status' && !isCooling('status', 1, p)) {
+        injected = drawDynamic('status', p); isSpecialCard = true;
+      } else if (r < 0.38 && canDrink('drinking')) {
+        injected = drawDynamic('drinking', p);
+      } else if (r < 0.52 && canShots()) {
+        injected = drawDynamic('shots', p); isSpecialCard = true;
+      } else if (r < 0.65 && canGroup()) {
+        injected = drawDynamic('group', p);
+      } else if (r < 0.78 && !isCooling('blackout', 1, p)) {
+        injected = drawDynamic('blackout', p);
+      }
       break;
 
     // ── TIPSY: vulnerability opens, social pressure mounts ────────────────────
     case 'tipsy':
-      if (r < 0.18 && lastSpecial !== 'status' && !isCooling('status',1)) {
-        injected = drawDynamic('status'); isSpecialCard = true;
+      if (r < 0.18 && lastSpecial !== 'status' && !isCooling('status', 1, p)) {
+        injected = drawDynamic('status', p); isSpecialCard = true;
       } else if (r < 0.34 && canDrink('drinking')) {
-        injected = drawDynamic('drinking');
+        injected = drawDynamic('drinking', p);
       } else if (r < 0.48 && canShots()) {
-        injected = drawDynamic('shots'); isSpecialCard = true;
+        injected = drawDynamic('shots', p); isSpecialCard = true;
       } else if (r < 0.60 && canGroup()) {
-        injected = drawDynamic('group');
-      } else if (r < 0.72 && !isCooling('blackout',1)) {
-        injected = drawDynamic('blackout');
-      } else if (!isCooling('story',1)) {
-        injected = drawDynamic('story');
+        injected = drawDynamic('group', p);
+      } else if (r < 0.72 && !isCooling('blackout', 1, p)) {
+        injected = drawDynamic('blackout', p);
+      } else if (!isCooling('story', 1, p)) {
+        injected = drawDynamic('story', p);
       }
       break;
 
-    // ── DRUNK: instability, manipulation, louder energy ───────────────────────
+    // ── DRUNK: instability, louder energy ─────────────────────────────────────
     case 'drunk':
-      if (r < 0.16 && !isCooling('story',1)) {
-        injected = drawDynamic('story');
-      } else if (r < 0.30 && !isCooling('blackout',1)) {
-        injected = drawDynamic('blackout');
-      } else if (r < 0.42 && lastSpecial !== 'mini' && !isCooling('mini',1)) {
-        injected = drawDynamic('mini'); isSpecialCard = true;
+      if (r < 0.16 && !isCooling('story', 1, p)) {
+        injected = drawDynamic('story', p);
+      } else if (r < 0.30 && !isCooling('blackout', 1, p)) {
+        injected = drawDynamic('blackout', p);
+      } else if (r < 0.42 && lastSpecial !== 'mini' && !isCooling('mini', 1, p)) {
+        injected = drawDynamic('mini', p); isSpecialCard = true;
       } else if (r < 0.55 && canShots()) {
-        injected = drawDynamic('shots'); isSpecialCard = true;
+        injected = drawDynamic('shots', p); isSpecialCard = true;
       } else if (canDrink('drinking')) {
-        injected = drawDynamic('drinking');
+        injected = drawDynamic('drinking', p);
       }
       break;
 
-    // ── COLLAPSE / BLACKOUT: systemic corruption, escalating chaos ────────────
-    case 'collapsed':
-    case 'blackout':
-      if (r < 0.20 && !isCooling('chaos',1) && lastSpecial !== 'chaos') {
-        injected = drawDynamic('chaos'); isSpecialCard = true;
+    // ── WASTED: systemic corruption, escalating chaos ─────────────────────────
+    case 'wasted':
+      if (r < 0.20 && !isCooling('chaos', 1, p) && lastSpecial !== 'chaos') {
+        injected = drawDynamic('chaos', p); isSpecialCard = true;
       } else if (r < 0.32 && canGShots()) {
-        injected = drawDynamic('groupshots'); isSpecialCard = true;
-      } else if (r < 0.44 && !isCooling('blackout',1)) {
-        injected = drawDynamic('blackout');
+        injected = drawDynamic('groupshots', p); isSpecialCard = true;
+      } else if (r < 0.44 && !isCooling('blackout', 1, p)) {
+        injected = drawDynamic('blackout', p);
       } else if (r < 0.58 && canShots()) {
-        injected = drawDynamic('shots'); isSpecialCard = true;
+        injected = drawDynamic('shots', p); isSpecialCard = true;
       } else if (canDrink('drinking')) {
-        injected = drawDynamic('drinking');
+        injected = drawDynamic('drinking', p);
       }
       break;
 
-    // ── TRANSCENDENCE: post-chaos calm, reflective, introspective ─────────────
-    // Reduce punishment density; increase story/blackout (confession) cards
-    case 'transcending':
-      if (r < 0.30 && !isCooling('story',2)) {
-        injected = drawDynamic('story');        // emotional honesty
-      } else if (r < 0.48 && !isCooling('blackout',1)) {
-        injected = drawDynamic('blackout');     // confession questions
-      } else if (r < 0.60 && canDrink('drinking') && !isCooling('drinking',2)) {
-        injected = drawDynamic('drinking');     // light drinking, not chaos
-      } else if (r < 0.72 && canGShots() && !isCooling('groupshots',2)) {
-        injected = drawDynamic('groupshots'); isSpecialCard = true;
+    // ── BLACKOUT: extreme chaos, maximum punishment density ───────────────────
+    case 'blackout':
+      if (r < 0.22 && !isCooling('chaos', 1, p) && lastSpecial !== 'chaos') {
+        injected = drawDynamic('chaos', p); isSpecialCard = true;
+      } else if (r < 0.36 && canGShots()) {
+        injected = drawDynamic('groupshots', p); isSpecialCard = true;
+      } else if (r < 0.48 && !isCooling('blackout', 1, p)) {
+        injected = drawDynamic('blackout', p);
+      } else if (r < 0.62 && canShots()) {
+        injected = drawDynamic('shots', p); isSpecialCard = true;
+      } else if (canDrink('drinking')) {
+        injected = drawDynamic('drinking', p);
       }
-      // No chaos in transcendence — intentionally quiet
+      break;
+
+    // ── TRANSCENDENCE: post-chaos calm, reflective ────────────────────────────
+    case 'transcending':
+      if (r < 0.30 && !isCooling('story', 2, p)) {
+        injected = drawDynamic('story', p);
+      } else if (r < 0.48 && !isCooling('blackout', 1, p)) {
+        injected = drawDynamic('blackout', p);
+      } else if (r < 0.60 && canDrink('drinking') && !isCooling('drinking', 2, p)) {
+        injected = drawDynamic('drinking', p);
+      } else if (r < 0.72 && canGShots() && !isCooling('groupshots', 2, p)) {
+        injected = drawDynamic('groupshots', p); isSpecialCard = true;
+      }
       break;
   }
-
   if (injected) {
     lastSpecialByPlayer[currentPlayer] = isSpecialCard ? injected.type : null;
   }
@@ -1874,22 +1957,29 @@ function injectBlackoutMode(deck) {
   const midThreshold  = Math.floor(playableCount * 0.40);
   let playableSeen = 0;
   let firstGroupInjected = false;
+  let lastDeckCardWasGroup = false;
 
-  // Weighted type pool — each entry is [type, weight]. Weights are re-rolled
-  // each game because initDynamicBanks() shuffles each sub-bank independently.
-  // We never hard-code a fixed sequence: we just pick from this pool randomly,
-  // respecting soft-entropy cooldowns so the same type doesn't cluster.
-  const earlyPool  = ['drinking','drinking','group','shots','drinking','group','status','drinking'];
-  const midPool    = ['shots','drinking','group','blackout','status','mini','chaos','story','drinking','shots'];
-  const latePool   = ['chaos','groupshots','blackout','shots','story','drinking','groupshots','chaos','shots'];
+  // Weighted pools control WHAT gets injected per game phase.
+  // drinking appears multiple times = higher weight. 
+  // shouldInjectBlackoutCard handles phase-specific rules (status, chaos, etc).
+  // These pools handle the baseline drinking/shots/group pacing so players
+  // actually accumulate shots and move through phases.
+  const earlyPool = ['drinking','drinking','group','shots','drinking','group','status','drinking'];
+  const midPool   = ['shots','drinking','group','blackout','status','mini','chaos','story','drinking','shots'];
+  const latePool  = ['chaos','groupshots','blackout','shots','story','drinking','groupshots','chaos','shots'];
+
+  // Rotate virtual player per playable card so per-player cooldowns are
+  // distributed evenly rather than all assigned to player 1.
+  let virtualP = 1;
+  const advanceVirtualP = () => { virtualP = (virtualP % playerCount) + 1; };
 
   for (let i = 0; i < deck.length; i++) {
     const item = deck[i];
 
-    // ── First playable card: always open with everyone-together ritual shot ─
+    // ── First playable card: ritual group shot to open ─────────────────────
     if (isPlayableCard(item) && !firstGroupInjected) {
       firstGroupInjected = true;
-      const firstCard = drawDynamic('groupshots');
+      const firstCard = drawDynamic('groupshots', virtualP);
       if (firstCard) {
         firstCard.q = t.firstRoundShots || '🔥 FIRST ROUND — Everyone takes a shot! 🔥';
         firstCard.c = 'GROUP SHOTS';
@@ -1900,6 +1990,7 @@ function injectBlackoutMode(deck) {
         firstCard.blackout = true;
         firstCard._bid = ++blackoutCardSeq;
         result.push(firstCard);
+        lastDeckCardWasGroup = true;
       }
     }
 
@@ -1907,53 +1998,55 @@ function injectBlackoutMode(deck) {
       playableSeen++;
       const isEarly = playableSeen <= OPENING_LENGTH;
       const isMid   = playableSeen > OPENING_LENGTH && playableSeen <= midThreshold;
-      // injection probability scales with game phase
+      // Injection probability: aggressive early so shots accumulate and phases advance
       const injectChance = isEarly ? 0.55 : isMid ? 0.45 : 0.35;
 
       if (Math.random() < injectChance) {
-        // pick weighted pool for this phase, then shuffle-pick to avoid bias
         const pool = isEarly ? earlyPool : isMid ? midPool : latePool;
-        // Try up to 4 times to find a non-cooling type
         let injected = null;
+        // Try up to 4 times to find a non-cooling type for this virtual player
         for (let attempt = 0; attempt < 4 && !injected; attempt++) {
           const type = pool[Math.floor(Math.random() * pool.length)];
-          if (!isCooling(type, 2)) {
-            injected = drawDynamic(type);
+          if (!isCooling(type, 2, virtualP)) {
+            injected = drawDynamic(type, virtualP);
           }
         }
-        // Fallback: just draw drinking if everything was cooling
-        if (!injected) injected = drawDynamic('drinking');
-        if (injected) result.push(injected);
+        // Fallback: drinking always works
+        if (!injected) injected = drawDynamic('drinking', virtualP);
+
+        if (injected) {
+          // Post-group protection: no drinking/shots right after a group card
+          const blocked = lastDeckCardWasGroup && isImmediateDrinkingCard(injected);
+          if (!blocked) {
+            result.push(injected);
+            lastDeckCardWasGroup = isGroupCard(injected);
+          } else {
+            lastDeckCardWasGroup = false;
+          }
+        }
+      }
+
+      // Advance virtual player after each playable card (wildcards and group
+      // cards don't change who's "up", matching live gameplay rules)
+      if (item.type !== 'wildcard' && !isGroupCard(item)) {
+        advanceVirtualP();
       }
     }
 
     result.push(item);
+    if (item.type !== 'wildcard') {
+      lastDeckCardWasGroup = isGroupCard(item);
+    }
   }
-  return postProcessNoConsecutiveSpecials(result);
+  return postProcessNoConsecutiveSpecialsPass1Only(result);
 }
 
-function injectWildcards(qs) {
-  const pool = shuffle([...activeWildcards.map(w=>({...w}))]);
-  if (blackoutMode) pool.push(...activeBlackoutBanks.wildcards.map(w=>({...w,type:'wildcard',blackout:true})));
-  let wi = 0;
-  const result = [];
-  for (const q of qs) {
-    // Wildcards are MODIFIER cards — they change HOW the NEXT question is answered.
-    // They must only land immediately before a standard question card.
-    // Never before drinks, minigames, chaos or other wildcards.
-    const isQuestion = !q.blackout && q.c && !q.type?.includes('shot') && !q.type?.includes('drink')
-                       && !q.type?.includes('mini') && !q.type?.includes('chaos');
-    if (pool.length && isQuestion && Math.random() < (blackoutMode ? 0.10 : 0.08))
-      result.push({type:'wildcard', blackout: blackoutMode, wc: pool[wi++ % pool.length].q});
-    result.push({type:'question', ...q});
-  }
-  return result;
-}
-
-function postProcessNoConsecutiveSpecials(deck) {
-  for (let i=1; i<deck.length; i++) {
+// Pass 1 only: break consecutive specials (no wildcard/status adjacency logic).
+// Used internally by injectBlackoutMode before wildcards are in final position.
+function postProcessNoConsecutiveSpecialsPass1Only(deck) {
+  for (let i = 1; i < deck.length; i++) {
     if (isSpecial(deck[i]) && isSpecial(deck[i-1])) {
-      for (let j=i+1; j<deck.length; j++) {
+      for (let j = i + 1; j < deck.length; j++) {
         if (!isSpecial(deck[j])) {
           [deck[i], deck[j]] = [deck[j], deck[i]];
           break;
@@ -1964,21 +2057,257 @@ function postProcessNoConsecutiveSpecials(deck) {
   return deck;
 }
 
+// ══════════════════════════════════════════════════════════════════
+//  WILDCARD SUB-POOLS
+//  Three tiers so wildcards are always contextually coherent:
+//
+//  UNIVERSAL  — grammatically valid for any question format
+//  OPINION    — work on personal open-ended answers
+//  STORY      — only for questions that naturally generate a narrative
+//
+//  noWildcard detection runs before injection so group-vote, binary,
+//  format-locked and meta questions are never paired with a wildcard.
+// ══════════════════════════════════════════════════════════════════
+
+// Patterns that make a question incompatible with ANY wildcard
+const NO_WILDCARD_PATTERNS = [
+  // Group-vote — no individual "your answer" exists
+  /^who here/i, /^who in this/i, /^who in your/i,
+  /^point at/i, /^everyone vote/i, /^everyone point/i,
+  /^todos apunten/i, /^todos voten/i, /^señalen/i,
+  /^voten quién/i, /^apunten al/i,
+  // Binary yes/no / A-or-B — not enough material for most wildcards
+  /^would you rather/i, /^qué prefieres:/i,
+  /^can love exist/i, /^is timing everything/i,
+  /^are we alone/i, /^is time linear/i,
+  /^do intentions matter/i, /^is pain necessary/i,
+  /^is justice/i, /^is forgiveness/i, /^can compassion/i,
+  /^is it ever okay/i, /^is it worse to/i,
+  /^would it actually/i, /^does everyone truly/i,
+  /^does love feel/i, /^do you believe in fate/i,
+  /¿puede haber amor/i, /¿crees que en el amor el momento/i,
+  /¿todo el mundo se merece/i, /¿de verdad estaremos/i,
+  /¿crees que el tiempo/i, /¿perdonar siempre/i,
+  /¿crees que se puede enseñar/i, /¿hay momentos en los que sí es válido/i,
+  /¿de verdad sería una buena idea vivir/i,
+  // Format-locked — question already dictates answer format
+  /^in one word/i, /^en una sola palabra/i,
+  /^introvert or extrovert/i, /^planner or spontaneous/i,
+  /^follow your heart or/i, /^chaos or control/i,
+  /^minimalist or maximalist/i, /^saver or spender/i,
+  /^expert at one thing/i,
+  /^¿introvertido o extrovertido/i, /^¿de qué tipo eres:/i,
+  /^¿le haces caso al corazón/i, /^¿team caos/i,
+  /^¿minimalista o maximalista/i, /^¿de los que ahorran/i,
+  /^¿prefieres ser experto/i,
+  // Meta / end-of-game reflection
+  /^what has this conversation taught you/i,
+  /^what lesson will you take from this conversation/i,
+  /^¿qué te ha enseñado esta conversación/i,
+  /^¿con qué lección te quedas de toda esta conversación/i,
+  /^in one word, how do you feel right now/i,
+  /^en una sola palabra, ¿cómo te sientes/i,
+  /^what question were you most afraid to answer tonight/i,
+  /^¿cuál era la pregunta que más miedo te daba/i,
+];
+
+// Questions from STORIES/STORYTIME that already request a narrative
+const STORY_PROMPT_PATTERNS = [
+  /^tell us about/i, /^tell me about/i, /^tell the story/i,
+  /^cuéntanos/i, /^cuéntame/i,
+];
+
+function isNoWildcardQuestion(q) {
+  const text = (q.q || '').trim();
+  return NO_WILDCARD_PATTERNS.some(rx => rx.test(text));
+}
+
+function isStoryPromptQuestion(q) {
+  const text = (q.q || '').trim();
+  return STORY_PROMPT_PATTERNS.some(rx => rx.test(text));
+}
+
+// Split the wildcard pool into three semantic tiers.
+// Input: flat array of wildcard objects {q: string}
+function buildWildcardTiers(rawPool) {
+  // Keywords that mark a wildcard as story-only
+  const storyKeywords = [
+    'tell the story', 'the story like', 'your friends tell it',
+    'guess what age', 'end your answer like you just learned nothing',
+    'villain arc', 'villain', 'learned nothing from the experience',
+    'cuenta la historia', 'cuenta la versión', 'como la echan tus amigos',
+    'adivina qué edad', 'aprendiste nada de la experiencia',
+  ];
+  // Keywords that mark a wildcard as opinion-only (needs personal open answer)
+  const opinionKeywords = [
+    'red flag or green flag', 'autobiography', 'summarize your personality',
+    'toxic version', 'the other person has to summarize',
+    'red flag o green flag', 'autobiografía', 'resumir tu personalidad',
+    'versión más tóxica',
+  ];
+
+  const story = [], opinion = [], universal = [];
+  for (const wc of rawPool) {
+    const txt = (wc.q || wc.wc || '').toLowerCase();
+    if (storyKeywords.some(k => txt.includes(k))) {
+      story.push(wc);
+    } else if (opinionKeywords.some(k => txt.includes(k))) {
+      opinion.push(wc);
+    } else {
+      universal.push(wc);
+    }
+  }
+  return { story: shuffle(story), opinion: shuffle(opinion), universal: shuffle(universal) };
+}
+
+// Pick the best matching wildcard for a given question
+function pickWildcard(tiers, isStory) {
+  if (isStory) {
+    // Story prompts: prefer story tier, fall back to universal
+    const pool = tiers.story.length ? tiers.story : tiers.universal;
+    return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+  }
+  // Regular opinion questions: pick from opinion + universal combined
+  const combined = [...tiers.opinion, ...tiers.universal];
+  return combined.length ? combined[Math.floor(Math.random() * combined.length)] : null;
+}
+
+// ── Per-player wildcard cooling ──────────────────────────────────────────────
+// Tracks which specific wildcard TEXTS each player has seen recently.
+// A wildcard won't repeat for a player until WILDCARD_COOLDOWN different
+// wildcards have appeared for that player first.
+// Falls back to full pool if all wildcards are cooling (rare, small pools).
+function drawWildcardForPlayer(playerId) {
+  const pool = activeWildcards;
+  if (!pool || pool.length === 0) return null;
+  if (!wildcardHistoryByPlayer[playerId]) wildcardHistoryByPlayer[playerId] = [];
+  const history = wildcardHistoryByPlayer[playerId];
+  const recentSet = new Set(history.slice(-WILDCARD_COOLDOWN));
+  const available = pool.filter(w => !recentSet.has(w.q));
+  const chosen = available.length > 0
+    ? available[Math.floor(Math.random() * available.length)]
+    : pool[Math.floor(Math.random() * pool.length)]; // fallback
+  history.push(chosen.q);
+  if (history.length > RECENT_WINDOW) history.shift();
+  return chosen;
+}
+
+function injectWildcards(qs) {
+  // Blackout mode: use tiered pools (STORY / OPINION / UNIVERSAL)
+  // BT mode: use drawWildcardForPlayer with per-player cooldown + virtualPlayer rotation
+  const rawBlackout = blackoutMode
+    ? activeBlackoutBanks.wildcards.map(w => ({...w, type:'wildcard', blackout:true}))
+    : [];
+  const tiers = buildWildcardTiers(shuffle([...rawBlackout]));
+
+  const result = [];
+  for (const q of qs) {
+    const isEligibleType = !q.blackout && q.c
+      && !q.type?.includes('shot') && !q.type?.includes('drink')
+      && !q.type?.includes('mini') && !q.type?.includes('chaos');
+
+    const noWildcard = isNoWildcardQuestion(q);
+    const isStory    = isStoryPromptQuestion(q);
+
+    if (isEligibleType && !noWildcard && Math.random() < (blackoutMode ? 0.10 : 0.08)) {
+      let wc;
+      if (blackoutMode) {
+        wc = pickWildcard(tiers, isStory);
+      } else {
+        // Rotate virtual players so BT wildcards are distributed evenly
+        // across players and per-player cooldown is respected at build time.
+        const virtualPlayer = (result.filter(x => x.type === 'wildcard').length % playerCount) + 1;
+        wc = drawWildcardForPlayer(virtualPlayer);
+      }
+      if (wc) {
+        result.push({
+          type: 'wildcard',
+          blackout: !!(wc.blackout || blackoutMode),
+          wc: wc.q || wc.wc,
+          _targetsStory: isStory,
+        });
+      }
+    }
+    result.push({type:'question', ...q});
+  }
+  return result;
+}
+
+function postProcessNoConsecutiveSpecials(deck) {
+  // ── Pass 1 (original): break up any two consecutive special cards ──────────
+  for (let i = 1; i < deck.length; i++) {
+    if (isSpecial(deck[i]) && isSpecial(deck[i-1])) {
+      for (let j = i + 1; j < deck.length; j++) {
+        if (!isSpecial(deck[j])) {
+          [deck[i], deck[j]] = [deck[j], deck[i]];
+          break;
+        }
+      }
+    }
+  }
+
+  // ── Pass 2 (new): guarantee wildcard → plain-question adjacency ───────────
+  // injectBlackoutMode() runs AFTER injectWildcards() and can insert a
+  // drinking/shots/status card between a wildcard and its intended target.
+  // This pass finds every wildcard and ensures the very next card is a
+  // plain question.  If not, it pulls the next eligible question forward.
+  for (let i = 0; i < deck.length - 1; i++) {
+    if (deck[i].type !== 'wildcard') continue;
+    const next = deck[i + 1];
+    const nextIsPlainQuestion = next
+      && next.type === 'question'
+      && !next.blackout
+      && !isSpecial(next);
+    if (!nextIsPlainQuestion) {
+      for (let j = i + 2; j < deck.length; j++) {
+        if (deck[j].type === 'question' && !deck[j].blackout && !isSpecial(deck[j])) {
+          const [pulled] = deck.splice(j, 1);
+          deck.splice(i + 1, 0, pulled);
+          break;
+        }
+      }
+    }
+  }
+
+  // ── Pass 3 (new): same guarantee for STATUS cards ─────────────────────────
+  // A STATUS card tells the player to behave a certain way for N rounds.
+  // If the very next card is a drinking card the status never gets played.
+  // We ensure STATUS is always followed by a question so the effect lands.
+  for (let i = 0; i < deck.length - 1; i++) {
+    if (deck[i].type !== 'status') continue;
+    const next = deck[i + 1];
+    const nextIsQuestion = next && next.type === 'question' && !isSpecial(next);
+    if (!nextIsQuestion) {
+      for (let j = i + 2; j < deck.length; j++) {
+        if (deck[j].type === 'question' && !isSpecial(deck[j])) {
+          const [pulled] = deck.splice(j, 1);
+          deck.splice(i + 1, 0, pulled);
+          break;
+        }
+      }
+    }
+  }
+
+  return deck;
+}
+
 function verifyAndSwapCardForCooldown() {
-  // Real-time safety net: if the current card is an immediate drinking card
-  // and the active player has a blocking effect, swap it with the next
-  // non-drinking card. This catches any cards the deck builder missed.
-  if (!blackoutMode) return;
   const currentItem = deck[idx];
   if (!currentItem) return;
-  if (playerHasBlockingEffect(player) && isImmediateDrinkingCard(currentItem)) {
+
+  // ── Gate 1 (Blackout only): swap drinking card when player has blocking effect
+  if (blackoutMode && playerHasBlockingEffect(player) && isImmediateDrinkingCard(currentItem)) {
     for (let j = idx + 1; j < deck.length; j++) {
       if (!isImmediateDrinkingCard(deck[j])) {
         [deck[idx], deck[j]] = [deck[j], deck[idx]];
         break;
       }
     }
+    return; // re-evaluate after the swap on next render cycle
   }
+
+  // Wildcard cooling is handled at build time by drawWildcardForPlayer (BT)
+  // and by the tier system (Blackout). No runtime swap needed here.
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -2006,26 +2335,21 @@ function showStats() {
   let html = '';
   if (blackoutMode) {
     html += `<h3 style="margin-bottom:8px;">${t.statsShots}</h3>`;
-    html += `<table class="stats-table"><tr><th>${t.statsPlayer}</th><th>🍺 Shots</th></tr>`;
+    html += `<table class="stats-table"><tr><th>${t.statsPlayer}</th><th>🍺 Shots</th><th>Stage</th></tr>`;
     for (let i=1; i<=playerCount; i++) {
       const s = playerShots[i] || 0;
       const displayShots = s % 1 === 0 ? s.toFixed(0) : s.toFixed(1);
-      html += `<tr><td>${playerLabel(i)}</td><td>${displayShots}</td></tr>`;
+      const phase = getPlayerPhaseFromShots(s);
+      html += `<tr><td>${playerLabel(i)}</td><td>${displayShots}</td><td>${phase.emoji||''} ${phase.label.replace(/[^\p{L}\s]/gu,'').trim().toUpperCase()}</td></tr>`;
     }
     html += `</table>`;
   }
   html += `<h3 style="margin-top:12px;margin-bottom:8px;">${t.statsQuestions}</h3>`;
-  html += `<table class="stats-table"><tr><th>${t.statsPlayer}</th><th>${t.statsCategory}</th><th>Cant.</th></tr>`;
+  html += `<table class="stats-table"><tr><th>${t.statsPlayer}</th><th>Cant.</th></tr>`;
   for (let i=1; i<=playerCount; i++) {
     const qs = playerQuestions[i] || {};
-    const entries = Object.entries(qs);
-    if (entries.length === 0) {
-      html += `<tr><td>${playerLabel(i)}</td><td colspan="2">—</td></tr>`;
-    } else {
-      entries.forEach(([cat, cnt], idx) => {
-        html += `<tr><td>${idx===0 ? playerLabel(i) : ''}</td><td>${cat}</td><td>${cnt}</td></tr>`;
-      });
-    }
+    const total = Object.values(qs).reduce((a, b) => a + b, 0);
+    html += `<tr><td>${playerLabel(i)}</td><td>${total || '—'}</td></tr>`;
   }
   html += `</table>`;
   document.getElementById('doneStats').innerHTML = html;
@@ -2228,13 +2552,13 @@ function showFront() {
     });
   }
 
-  // ── Activate persistent effects (STATUS and persistent MINIGAMEs) ──────
-  // Persistent effects block drinking categories so player can "live" their
-  // role/challenge without being immediately saturated with shot cards.
+  // ── Activate persistent effects (STATUS and persistent MINIGAMEs) ──────────
+  // STATUS applies ONLY to the player whose turn it is.
+  // Duration = one individual question or mini answered/skipped by the owning player.
+  // Duration is parsed from the card text so it matches what the card says.
+  // A "round" = one question card answered (or skipped) by the owning player.
   if (item && !item._activated) {
     const isPersistentStatus = item.type === 'status';
-    // A MINIGAME is persistent if its text mentions "for X rounds", "next N",
-    // or common behavioral challenge keywords.
     const isPersistentMini = item.type === 'mini' && (
       /for .*(round|turn)/i.test(item.q||'') ||
       /next .*(round|turn)/i.test(item.q||'') ||
@@ -2243,22 +2567,32 @@ function showFront() {
 
     if (isPersistentStatus || isPersistentMini) {
       item._activated = true;
-      let title, desc;
+      let title, desc, duration;
+
       if (isPersistentStatus) {
         const parts = (item.q||'').split(':');
         title = parts[0].trim();
-        desc = parts.slice(1).join(':').trim() || item.q;
+        desc  = parts.slice(1).join(':').trim() || item.q;
+        // Parse duration from card text: "for 3 rounds" / "3 rondas" / "next 2 rounds"
+        const durationMatch = (item.q||'').match(/(?:for|next|por|durante|las?|las? siguientes?)\s+(\d+)\s+(?:rounds?|turns?|rondas?)/i)
+                           || (item.q||'').match(/(\d+)\s+(?:rounds?|turns?|rondas?)/i);
+        duration = durationMatch ? parseInt(durationMatch[1], 10) : 3;
       } else {
         title = 'MINIGAME';
-        desc = item.q || '';
+        desc  = item.q || '';
+        const durationMatch = (item.q||'').match(/(?:for|next|por|durante)\s+(\d+)\s+(?:rounds?|turns?|rondas?)/i)
+                           || (item.q||'').match(/(\d+)\s+(?:rounds?|turns?|rondas?)/i);
+        duration = durationMatch ? parseInt(durationMatch[1], 10) : 2;
       }
+
       if (!playerEffects[player]) playerEffects[player] = [];
       playerEffects[player].push({
         id: item._bid || Date.now(),
+        ownedBy: player,          // track which player owns this effect
         title,
         q: desc,
-        duration: isPersistentStatus ? 3 : 2,  // STATUS lasts 3 turns, mini 2
-        blocksDrinking: true,  // prevents SHOTS/DRINKING spam while effect is live
+        duration,                 // from card text, not hardcoded
+        blocksDrinking: true,
         type: isPersistentStatus ? 'status' : 'mini'
       });
       renderEffectsTray();
@@ -2345,26 +2679,53 @@ function _advance(dir) {
       skipStreakBefore:{...playerSkipStreak}
     });
 
-    if (playerEffects[player]) {
-      playerEffects[player].forEach(e => e.duration--);
-      playerEffects[player] = playerEffects[player].filter(e => e.duration > 0);
+    // ── Tick effect durations ────────────────────────────────────────────────
+    // A STATUS/MINI "round" = one INDIVIDUAL question or mini answered (or skipped)
+    // by the player who OWNS the effect. Group cards, wildcards, drinking cards
+    // and other players' turns never consume a round.
+    // `player` here is still the answering player (toggleP runs later).
+    const isIndividualTurn = currentItem
+      && !isGroupCard(currentItem)
+      && (currentItem.type === 'question' || currentItem.type === 'mini');
+    if (isIndividualTurn) {
+      if (playerEffects[player]) {
+        playerEffects[player] = playerEffects[player]
+          .map(e => ({...e, duration: e.duration - 1}))
+          .filter(e => e.duration > 0);
+      }
     }
 
-    if (dir === 'left') {
-      playerSkipStreak[player] = (playerSkipStreak[player]||0) + 1;
-      if (playerSkipStreak[player] >= 2) {
-        playerShots[player] = (playerShots[player]||0) + 1;
-        playerSkipStreak[player] = 0;
-      }
+    // Skip escalation: only individual questions and mini cards trigger the streak.
+    // Group, wildcard, drinking, shots, status, chaos skip → resets streak, no penalty.
+    // Escalation per player: 1st→0.5sip, 2nd→1shot, 3rd→2shots, 4th+→4shots(fondo)
+    const isPersonalCard = currentItem &&
+      (currentItem.type === 'question' || currentItem.type === 'mini') &&
+      !isGroupCard(currentItem);
+    if (dir === 'left' && isPersonalCard) {
+      const streak = (playerSkipStreak[player] || 0) + 1;
+      playerSkipStreak[player] = streak;
+      const penaltyMap = [0, 0.5, 1, 2, 4]; // index = streak (1-based)
+      const penalty = streak < penaltyMap.length ? penaltyMap[streak] : 4;
+      playerShots[player] = (playerShots[player] || 0) + penalty;
+      updateBlackoutPhase();
     } else {
+      // Any non-individual-skip (group skip, played card, wildcard skip) resets streak
       playerSkipStreak[player] = 0;
     }
 
-    if (currentItem && currentItem.type !== 'wildcard') {
+    if (currentItem && currentItem.type === 'question') {
+      // Standard question — count toward category stats (no group cards — spec #8)
       const cat = getCardDisplay(currentItem).cat;
       if (!playerQuestions[player]) playerQuestions[player] = {};
       playerQuestions[player][cat] = (playerQuestions[player][cat]||0) + 1;
-      toggleP();
+    }
+
+    // Turn advance: wildcards never advance; group cards only advance on skip.
+    // All other cards (questions, drinking, shots, status, mini, chaos) advance.
+    if (currentItem && currentItem.type !== 'wildcard') {
+      if (!(dir === 'right' && isGroupCard(currentItem))) {
+        toggleP();
+      }
     }
 
     idx++;
@@ -2377,7 +2738,12 @@ function _advance(dir) {
 
 function next(){_advance('right');}
 function skip(){_advance('left');}
-function toggleP(){player=(player%playerCount)+1;renderPlayersBar();}
+function toggleP(){
+  player = (player % playerCount) + 1;
+  renderPlayersBar();
+  renderEffectsTray();   // update tray to show active player's effects
+  updateBlackoutPhase(); // update phase indicator for new active player
+}
 
 function prev() {
   if (history.length===0) return;
@@ -2439,6 +2805,9 @@ function resetGame() {
   blackoutCardSeq = 0;
   playerEffects = {};
   for(let i=1; i<=8; i++) playerEffects[i] = [];
+  wildcardHistoryByPlayer  = {};
+  recentCategoriesByPlayer = {};
+  lastServedByType         = {};
 
   if (blackoutMode) {
     initDynamicBanks(); // also resets recentCategories, openingCardsDealt, lastSpecialByPlayer
@@ -2505,7 +2874,7 @@ const SU_CAT_DESC = {
     'STORIES':'Real memories, unforgettable moments & confessions.',
     'SPARK':'Attraction, flirting & romantic tension.',
     'BLACKOUT':'Dark confessions & extreme questions.',
-    'STORY DAMAGE':'Chaotic story rounds with consequences.',
+    'EMOTIONAL DAMAGE':'Emotionally devastating rounds with consequences.',
   },
   ES:{
     'MOMENTO HUMILDE':'Vergüenzas, redes sociales y preguntas directas.',
@@ -2593,7 +2962,7 @@ function suBuildCatGrid() {
 
   if (isBk) {
     const bkCats = lang === 'EN'
-      ? [{name:'BLACKOUT',icon:'💀',color:'#FF1744',neonColor:'#FF4569'},{name:'STORY DAMAGE',icon:'🔥',color:'#FF6D00',neonColor:'#FF8C00'}]
+      ? [{name:'BLACKOUT',icon:'💀',color:'#FF1744',neonColor:'#FF4569'},{name:'EMOTIONAL DAMAGE',icon:'🙂💔',color:'#FF6D00',neonColor:'#FF8C00'}]
       : [{name:'BLACKOUT',icon:'💀',color:'#FF1744',neonColor:'#FF4569'},{name:'DAÑO EMOCIONAL',icon:'🩸',color:'#FF6D00',neonColor:'#FF8C00'}];
     for (const c of bkCats) {
       const on = suCatState[c.name] !== false;
@@ -2688,7 +3057,7 @@ function suLaunch() {
       .map(i=>i.querySelector('.su-cat-name').textContent);
     // Map special keys
     selectedCatsState = selectedCatsState.map(c=>{
-      if(c==='STORY DAMAGE') return '__story__';
+      if(c==='STORY DAMAGE'||c==='EMOTIONAL DAMAGE') return '__story__';
       if(c==='BLACKOUT') return '__blackout__';
       if(c==='DAÑO EMOCIONAL') return '__story__';
       return c;
@@ -2703,6 +3072,9 @@ function suLaunch() {
   setTimeout(()=>{
     setup.style.display='none';setup.style.opacity='';setup.style.transition='';
     document.getElementById('game').style.display='flex';
+    wildcardHistoryByPlayer  = {};
+    recentCategoriesByPlayer = {};
+    lastServedByType         = {};
     resetGame();
   },350);
 }
@@ -2735,6 +3107,9 @@ function goHome() {
   const s=document.getElementById('splash');
   s.style.display='flex';s.style.opacity='1';s.style.transition='';
   selectedCatsState=null;
+  wildcardHistoryByPlayer  = {};
+  recentCategoriesByPlayer = {};
+  lastServedByType         = {};
   const chkAll=document.getElementById('chkAll');
   if(chkAll) chkAll.checked=true;
   document.querySelectorAll('.cat-chk').forEach(c=>c.checked=false);
@@ -2745,7 +3120,7 @@ function goHome() {
 //  PANEL DE CATEGORÍAS
 // ══════════════════════════════════════════════════════════════════
 const BLACKOUT_SYNTH = {
-  EN: [{key:'__blackout__', label:'BLACKOUT', icon:'💀'}, {key:'__story__', label:'STORY DAMAGE', icon:'🔥'}],
+  EN: [{key:'__blackout__', label:'BLACKOUT', icon:'💀'}, {key:'__story__', label:'EMOTIONAL DAMAGE', icon:'🔥'}],
   ES: [{key:'__blackout__', label:'BLACKOUT', icon:'💀'}, {key:'__story__', label:'DAÑO EMOCIONAL', icon:'🔥'}],
 };
 
@@ -2853,12 +3228,24 @@ function updateBlackoutToggleUI(){
 function renderEffectsTray(){
   const tray=document.getElementById('effectsTray');
   if(!tray) return;
-  if(!blackoutMode){tray.innerHTML='';return;}
-  const active = playerEffects[player] || [];
-  if(active.length===0){tray.innerHTML='';return;}
-  tray.innerHTML=active.map(e=>{
-    const blockLabel = e.blocksDrinking ? (currentLanguage==='ES'?' · 🚫🥃':'· 🚫🥃') : '';
-    return `<div class="effect-chip"><strong>${esc(e.title)} · ${e.duration} ${currentLanguage==='ES'?'rondas':'rounds'}${blockLabel}</strong>${esc(e.q)}</div>`;
+  if(!blackoutMode){tray.innerHTML='';tray.style.display='none';return;}
+
+  // Hide tray entirely on group cards (spec #11)
+  const currentCard = deck[idx];
+  if (currentCard && isGroupCard(currentCard)) {
+    tray.style.display = 'none';
+    return;
+  }
+
+  // Show only the ACTIVE PLAYER'S effects (STATUS is per-player — spec #issue)
+  const active = (playerEffects[player] || []).filter(e => e.ownedBy === player || !e.ownedBy);
+  if(active.length===0){tray.innerHTML='';tray.style.display='none';return;}
+
+  tray.style.display = '';
+  const roundWord = currentLanguage==='ES' ? 'rondas' : 'rounds';
+  tray.innerHTML = active.map(e=>{
+    const blockLabel = e.blocksDrinking ? ' · 🚫🥃' : '';
+    return `<div class="effect-chip"><strong>${esc(e.title)} · ${e.duration} ${roundWord}${blockLabel}</strong>${esc(e.q)}</div>`;
   }).join('');
 }
 
