@@ -3291,18 +3291,16 @@ function suLaunch() {
 // Called from splash "Play" button
 function startGame() {
   suStep = 0; suMode = null; suCatState = {};
+  suPlayerNames = {};
+  suPlayers = 2;
   suShowStep(0, 'fwd');
   document.getElementById('suCardBT').classList.remove('chosen');
   document.getElementById('suCardBK').classList.remove('chosen');
-  suPlayers = playerCount;
-  document.getElementById('suNum').value = suPlayers;
-  document.getElementById('suMinus').disabled = suPlayers <= 2;
-  document.getElementById('suPlus').disabled  = suPlayers >= 30;
-  document.getElementById('suGroupPill').classList.toggle('show', suPlayers > 2);
+  document.getElementById('suNum').value = 2;
+  document.getElementById('suMinus').disabled = true;
+  document.getElementById('suPlus').disabled  = false;
+  document.getElementById('suGroupPill').classList.remove('show');
   suUpdateTexts();
-
-  // Sync setup name tiles from any existing in-game names
-  suPlayerNames = Object.assign({}, playerNames);
   suBuildNameGrid();
 
   const s = document.getElementById('splash');
@@ -3319,10 +3317,33 @@ function goHome() {
   document.getElementById('done').style.display='none';
   const s=document.getElementById('splash');
   s.style.display='flex';s.style.opacity='1';s.style.transition='';
+
+  // Full state reset
   selectedCatsState=null;
   wildcardHistoryByPlayer  = {};
   recentCategoriesByPlayer = {};
   lastServedByType         = {};
+  playerCount = 2;
+  player = 1;
+  playerNames = {};
+  playerShots = {};
+  playerEffects = {};
+  playerQuestions = {};
+
+  // Reset setup picker to 2 players, clear names, clear mode
+  suPlayers = 2;
+  suMode = null;
+  suStep = 0;
+  suCatState = {};
+  suPlayerNames = {};
+  document.getElementById('suNum').value = 2;
+  document.getElementById('suMinus').disabled = true;
+  document.getElementById('suPlus').disabled  = false;
+  document.getElementById('suGroupPill').classList.remove('show');
+  document.getElementById('suCardBT').classList.remove('chosen');
+  document.getElementById('suCardBK').classList.remove('chosen');
+  suBuildNameGrid();
+
   const chkAll=document.getElementById('chkAll');
   if(chkAll) chkAll.checked=true;
   document.querySelectorAll('.cat-chk').forEach(c=>c.checked=false);
