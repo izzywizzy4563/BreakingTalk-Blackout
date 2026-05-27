@@ -1136,13 +1136,25 @@ body.light-mode .su-dot.active{background:#141414;}
   letter-spacing:3px;text-transform:uppercase;color:var(--muted);
   margin:12px 0 8px;
 }
+/* The players label + picker together form a sticky header in step 0 */
+#suPlayersLabel{
+  position:sticky;top:0;z-index:11;
+  background:var(--bg);padding-top:10px;margin-top:0;
+}
+body.light-mode #suPlayersLabel{background:var(--bg);}
+body.neon-mode #suPlayersLabel{background:var(--bg);}
+body.blackout-mode #suPlayersLabel{background:#060309;}
 
 /* Player picker */
 .su-player-picker{
   display:flex;align-items:center;
   border:1px solid var(--border);border-radius:12px;
   overflow:hidden;background:var(--surface);margin-bottom:14px;
+  position:sticky;top:0;z-index:10;
+  /* Slight backdrop so it looks clean when name tiles scroll under it */
+  backdrop-filter:blur(12px) saturate(1.4);
 }
+body.light-mode .su-player-picker{background:var(--surface);}
 body.neon-mode .su-player-picker{border-color:rgba(0,229,255,.16);}
 body.blackout-mode .su-player-picker{border-color:rgba(255,23,68,.2);}
 .su-pp-btn{
