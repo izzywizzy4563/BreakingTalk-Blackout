@@ -2804,7 +2804,7 @@ function resetGame() {
   playerQuestions = {};
   blackoutCardSeq = 0;
   playerEffects = {};
-  for(let i=1; i<=8; i++) playerEffects[i] = [];
+  for(let i=1; i<=30; i++) playerEffects[i] = [];
   wildcardHistoryByPlayer  = {};
   recentCategoriesByPlayer = {};
   lastServedByType         = {};
@@ -2927,11 +2927,11 @@ function suUpdateCta() {
 
 function suDelta(d) {
   const n = suPlayers + d;
-  if (n < 2 || n > 8) return;
+  if (n < 2 || n > 30) return;
   suPlayers = n;
   document.getElementById('suNum').textContent = n;
   document.getElementById('suMinus').disabled = n <= 2;
-  document.getElementById('suPlus').disabled  = n >= 8;
+  document.getElementById("suPlus").disabled  = n >= 30;
   document.getElementById('suGroupPill').classList.toggle('show', n > 2);
 }
 
@@ -3088,7 +3088,7 @@ function startGame() {
   suPlayers = playerCount;
   document.getElementById('suNum').textContent = suPlayers;
   document.getElementById('suMinus').disabled = suPlayers <= 2;
-  document.getElementById('suPlus').disabled  = suPlayers >= 8;
+  document.getElementById('suPlus').disabled  = suPlayers >= 30;
   document.getElementById('suGroupPill').classList.toggle('show', suPlayers > 2);
   suUpdateTexts();
 
@@ -3188,7 +3188,7 @@ function renderPlayersBar(){
 }
 
 function setP(n){player=n;renderPlayersBar();updateBlackoutPhase();renderEffectsTray();}
-function addPlayer(){if(playerCount>=8)return;playerCount++;renderPlayersBar();}
+function addPlayer(){if(playerCount>=30)return;playerCount++;renderPlayersBar();}
 function removePlayer(n){
   if(playerCount<=2)return;
   if(n&&player===n) player=1;
