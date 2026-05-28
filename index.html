@@ -334,6 +334,45 @@ body.neon-mode .sp-play{box-shadow:0 0 48px rgba(0,229,255,.45),0 0 80px rgba(25
 .blackout-toggle{display:none !important;}
 .blackout-warning{display:none !important;}
 
+/* Splash mode selector */
+.sp-mode-select{
+  display:flex;gap:8px;margin-top:16px;
+  animation:fadeUp .7s .34s ease both;position:relative;z-index:1;
+}
+.sp-mode-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  border-radius:var(--radius-btn);
+  border:1.5px solid var(--border);
+  background:var(--surface);
+  font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.5px;
+  color:var(--muted);cursor:pointer;
+  transition:all var(--transition-base);
+  backdrop-filter:var(--blur-glass);
+}
+.sp-mode-pill:hover{background:var(--surface2);color:var(--text);}
+.sp-mode-pill-bt.active{
+  border-color:var(--c-cyan);
+  background:rgba(0,229,255,.1);
+  color:var(--c-cyan);
+  box-shadow:0 0 16px rgba(0,229,255,.2);
+}
+.sp-mode-pill-bk.active{
+  border-color:#FF1744;
+  background:rgba(255,23,68,.1);
+  color:#FF4567;
+  box-shadow:0 0 16px rgba(255,23,68,.2);
+}
+body.light-mode .sp-mode-pill{background:var(--surface);border-color:var(--border);color:var(--muted);}
+body.light-mode .sp-mode-pill-bt.active{border-color:#0EA5E9;background:rgba(14,165,233,.08);color:#0369A1;box-shadow:none;}
+body.light-mode .sp-mode-pill-bk.active{border-color:#DC2626;background:rgba(220,38,38,.06);color:#B91C1C;box-shadow:none;}
+body.neon-mode .sp-mode-pill{border-color:rgba(0,229,255,.15);color:rgba(0,229,255,.5);}
+body.neon-mode .sp-mode-pill-bt.active{border-color:var(--c-cyan);background:rgba(0,229,255,.1);color:var(--c-cyan);box-shadow:0 0 22px rgba(0,229,255,.3);}
+body.neon-mode .sp-mode-pill-bk.active{border-color:#FF1744;background:rgba(255,23,68,.1);color:#FF4567;box-shadow:0 0 22px rgba(255,23,68,.25);}
+body.blackout-mode .sp-mode-pill{border-color:rgba(238,232,255,.15);color:rgba(238,232,255,.5);}
+body.blackout-mode .sp-mode-pill-bk.active{border-color:#FF1744;background:rgba(255,23,68,.15);color:#FF4567;box-shadow:0 0 18px rgba(255,23,68,.3);}
+
 /* ══════════════════════════════════════════════════════════════════
    GAME SCREEN
    ══════════════════════════════════════════════════════════════════ */
@@ -1136,22 +1175,11 @@ body.light-mode .su-dot.active{background:#141414;}
   letter-spacing:3px;text-transform:uppercase;color:var(--muted);
   margin:12px 0 8px;
 }
-/* The players label + picker together form a sticky header in step 0 */
-#suPlayersLabel{
-  position:sticky;top:0;z-index:11;
-  background:var(--bg);padding-top:10px;margin-top:0;
-}
-body.light-mode #suPlayersLabel{background:var(--bg);}
-body.neon-mode #suPlayersLabel{background:var(--bg);}
-body.blackout-mode #suPlayersLabel{background:#060309;}
-
 /* Player picker */
 .su-player-picker{
   display:flex;align-items:center;
   border:1px solid var(--border);border-radius:12px;
-  overflow:hidden;background:var(--surface);margin-bottom:14px;
-  position:sticky;top:0;z-index:10;
-  /* Slight backdrop so it looks clean when name tiles scroll under it */
+  overflow:hidden;background:var(--surface);margin-bottom:10px;
   backdrop-filter:blur(12px) saturate(1.4);
 }
 body.light-mode .su-player-picker{background:var(--surface);}
@@ -1340,15 +1368,26 @@ body.neon-mode .su-cta-btn{box-shadow:0 0 36px rgba(0,229,255,.36),0 4px 20px rg
 body.light-mode.blackout-mode .player-btn{color:rgba(28,10,16,.4);}
 
 
+/* ── Setup sticky picker block ── */
+.su-picker-sticky{
+  position:sticky;top:0;z-index:12;
+  background:var(--bg);
+  padding-bottom:6px;
+  margin-bottom:0;
+}
+body.light-mode .su-picker-sticky{background:var(--bg);}
+body.neon-mode .su-picker-sticky{background:var(--bg);}
+body.blackout-mode .su-picker-sticky{background:#060309;}
+
 /* ── Setup player name grid ── */
 .su-name-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
-  gap:8px;margin-top:10px;margin-bottom:14px;
+  gap:8px;margin-top:0;margin-bottom:14px;
 }
 .su-name-tile{
   display:flex;flex-direction:column;align-items:stretch;
   background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-sm);overflow:hidden;position:relative;
+  border-radius:var(--radius-sm);overflow:visible;position:relative;
   transition:border-color .2s;
 }
 .su-name-tile:focus-within{border-color:var(--c-cyan);}
@@ -1364,6 +1403,18 @@ body.blackout-mode .su-name-tile:focus-within{border-color:#FF1744;}
   padding:2px 8px 7px;width:100%;
 }
 .su-name-tile-input::placeholder{color:var(--muted);opacity:.6;}
+/* X remove button on name tile */
+.su-name-tile-remove{
+  position:absolute;top:-6px;right:-6px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--surface3);border:1px solid var(--border);
+  color:var(--muted);font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;line-height:1;padding:0;z-index:5;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.su-name-tile-remove:hover{background:#FF1744;border-color:#FF1744;color:#fff;}
+body.blackout-mode .su-name-tile-remove{border-color:rgba(255,23,68,.3);}
 
 /* ── In-game: remove specific player button on active pill ── */
 .player-btn .p-remove{
@@ -1399,18 +1450,14 @@ body.blackout-mode .su-name-tile:focus-within{border-color:#FF1744;}
   <div class="sp-title">Breaking<span class="sp-title-accent">Talk</span></div>
   <div class="sp-rule"></div>
   <div class="sp-sub" id="spSub">Questions that go deeper than small talk.</div>
-  <div class="sp-badges">
-    <span class="sp-badge sp-badge-bt" id="spBadgeBT">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="8" y1="5" x2="8" y2="11"/><line x1="5" y1="8" x2="11" y2="8"/></svg>
-      <span id="spBadgeBTLabel">Breaking Talk</span>
-    </span>
-    <span class="sp-badge-sep">·</span>
-    <span class="sp-badge sp-badge-bk" id="spBadgeBK">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2 L14 6 L14 10 L8 14 L2 10 L2 6 Z"/></svg>
-      <span id="spBadgeBKLabel">Blackout</span>
-    </span>
-  </div>
+  <!-- badges hidden: replaced by mode pills below -->
+  <span id="spBadgeBTLabel" style="display:none">Breaking Talk</span>
+  <span id="spBadgeBKLabel" style="display:none">Blackout</span>
   <button class="sp-play" id="spPlay" onclick="startGame()">Play</button>
+  <div id="spModeSelect" style="display:none">
+    <span id="spPillBT"></span><span id="spPillBK"></span>
+    <span id="spPillBTLabel"></span><span id="spPillBKLabel"></span>
+  </div>
   <button class="blackout-toggle" id="blackoutToggle" onclick="toggleBlackoutMode()" aria-pressed="false">
     <span class="bt-icon">⬡</span><span id="btLabel">BLACKOUT MODE</span>
   </button>
@@ -1435,18 +1482,20 @@ body.blackout-mode .su-name-tile:focus-within{border-color:#FF1744;}
 
     <!-- STEP 0: jugadores + modo -->
     <div class="su-step active" id="suStep0">
-      <div class="su-label" id="suPlayersLabel">Jugadores</div>
-      <div class="su-player-picker">
-        <button class="su-pp-btn" id="suMinus" onclick="suDelta(-1)">−</button>
-        <div class="su-pp-mid">
-          <input class="su-pp-num" id="suNum" type="number" min="2" max="30" value="2"
-            inputmode="numeric" autocomplete="off"
-            oninput="suNumInput(this)"
-            onblur="suNumBlur(this)"
-            onkeydown="if(event.key==='Enter'){this.blur()}">
-          <span class="su-pp-lbl" id="suNumLbl">jugadores</span>
+      <div class="su-picker-sticky">
+        <div class="su-label" id="suPlayersLabel">Jugadores</div>
+        <div class="su-player-picker">
+          <button class="su-pp-btn" id="suMinus" onclick="suDelta(-1)">−</button>
+          <div class="su-pp-mid">
+            <input class="su-pp-num" id="suNum" type="number" min="2" max="30" value="2"
+              inputmode="numeric" autocomplete="off"
+              oninput="suNumInput(this)"
+              onblur="suNumBlur(this)"
+              onkeydown="if(event.key==='Enter'){this.blur()}">
+            <span class="su-pp-lbl" id="suNumLbl">jugadores</span>
+          </div>
+          <button class="su-pp-btn" id="suPlus" onclick="suDelta(1)">+</button>
         </div>
-        <button class="su-pp-btn" id="suPlus" onclick="suDelta(1)">+</button>
       </div>
       <div class="su-group-pill" id="suGroupPill">
         <div class="su-group-pill-icon">👥</div>
@@ -1939,138 +1988,297 @@ function playerHasBlockingEffect(playerId) {
   return effects.some(e => e.blocksDrinking === true);
 }
 
-// ── State-aware card selection with per-player soft entropy + effect exclusion ─
+// ══════════════════════════════════════════════════════════════════
+//  DYNAMIC DIRECTOR ENGINE — Adaptive Special Card Probability System
+//  Replaces the static shouldInjectBlackoutCard + injectBlackoutMode
+//  with a pressure-accumulation + weighted contextual spawning system.
+// ══════════════════════════════════════════════════════════════════
+
+// ── Director state (reset on every new game via directorReset()) ──
+const Director = {
+  specialPressure:  0,   // accumulates each card; resets to 0 on spawn
+  intensityScore:   0,   // cumulative engagement volume → global phase
+  poolCooldowns:    {},  // { poolKey: cardsAgoLastFired }
+  lastPoolFired:    null,
+  playerPressure:   {},  // per-player pressure mirror
+  recentCategories: [],  // rolling window of last 8 question categories
+  cardsDrawn:       0,
+};
+
+function directorReset() {
+  Director.specialPressure  = 0;
+  Director.intensityScore   = 0;
+  Director.poolCooldowns    = {};
+  Director.lastPoolFired    = null;
+  Director.playerPressure   = {};
+  Director.recentCategories = [];
+  Director.cardsDrawn       = 0;
+}
+
+// Cadence targets: ~1 special every N cards per phase
+// Cadence targets: ~1 special every N cards per phase
+// Tuned for ~25-card sessions feeling like an actual drinking game
+const _DIR_PHASE_TARGETS = {
+  sober:5, warmup:4, buzzed:3, tipsy:3,
+  drunk:2, wasted:2, blackout:2, transcending:3,
+};
+
+// Minimum cards between consecutive fires of the same pool
+const _DIR_POOL_COOLDOWNS = {
+  chaos:3, status:3, mini:4, wildcard:5,
+  groupshots:2, shots:2, drinking:1, group:2, blackout:2, story:3,
+};
+
+// Question category → { pressure bonus, spawn multiplier }
+const _DIR_Q_META = {
+  'SHOTS':            {pressure:4, mult:0.80},
+  'GROUP SHOTS':      {pressure:4, mult:0.80},
+  'DRINKING':         {pressure:3, mult:0.55},
+  'TOMADERA':         {pressure:3, mult:0.55},
+  'CHAOS':            {pressure:3, mult:0.45},
+  'CHAOS EVENT':      {pressure:3, mult:0.45},
+  'EVENTO CHAOS':     {pressure:3, mult:0.45},
+  'GROUP DRINKING':   {pressure:3, mult:0.40},
+  'TOMADERA GRUPAL':  {pressure:3, mult:0.40},
+  'DARE':             {pressure:2, mult:0.30},
+  'EXPOSURE':         {pressure:2, mult:0.30},
+  'CONFESSION':       {pressure:2, mult:0.22},
+  'EMOTIONAL DAMAGE': {pressure:2, mult:0.22},
+  'DAÑO EMOCIONAL':   {pressure:2, mult:0.22},
+  'ATTRACTION':       {pressure:2, mult:0.20},
+  'TENSION':          {pressure:2, mult:0.18},
+  // Standard BT categories — active conversation builds tension too
+  'CONNECTION':       {pressure:2, mult:0.15},
+  'CONNECTIONS':      {pressure:2, mult:0.15},
+  'STORIES':          {pressure:2, mult:0.15},
+  'STORYTIME':        {pressure:2, mult:0.15},
+  'IDENTITY':         {pressure:2, mult:0.12},
+  'REFLECTION':       {pressure:2, mult:0.12},
+  'PERSPECTIVE':      {pressure:2, mult:0.12},
+  'SAFE':             {pressure:1, mult:-0.10},
+};
+
+// Intensity weights for global phase progression
+const _DIR_INTENSITY = {
+  shot:3, chaos:2, groupExposure:2, confession:2, normal:2, blackoutSpecial:3,
+};
+
+// Global phase thresholds tuned for ~25-card sessions
+// Normal play (all normal questions, 2/session = 50 intensity) reaches BUZZED naturally
+// Shots and chaos accelerate the curve toward DRUNK/WASTED
+const _DIR_GLOBAL_THRESHOLDS = [
+  ['sober',0],['warmup',8],['buzzed',18],['tipsy',30],
+  ['drunk',45],['wasted',64],['blackout',86],['transcending',110],
+];
+
+// Pool weights per phase (relative weights; missing pools = ineligible that phase)
+const _DIR_POOL_WEIGHTS = {
+  sober:        {drinking:60, group:30, shots:10},
+  warmup:       {drinking:45, group:30, shots:20, status:5},
+  buzzed:       {drinking:35, group:20, shots:25, status:12, blackout:8},
+  tipsy:        {drinking:25, group:15, shots:28, status:12, blackout:12, story:8},
+  drunk:        {shots:25, drinking:18, mini:15, blackout:18, status:10, story:8, group:6},
+  wasted:       {chaos:20, groupshots:20, shots:20, blackout:18, drinking:12, story:10},
+  blackout:     {chaos:22, groupshots:22, shots:20, blackout:16, drinking:10, mini:10},
+  transcending: {story:30, blackout:22, drinking:18, groupshots:15, chaos:10, status:5},
+};
+
+// Phase order for "take the more advanced" comparison
+const _DIR_PHASE_ORDER = ['sober','warmup','buzzed','tipsy','drunk','wasted','blackout','transcending'];
+
+function _dirClamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+function _dirGetGlobalPhase() {
+  const s = Director.intensityScore;
+  let key = 'sober';
+  for (const [k, lo] of _DIR_GLOBAL_THRESHOLDS) { if (s >= lo) key = k; }
+  return key;
+}
+
+function _dirDeckFactor(size)   { return _dirClamp(size / 500, 0.55, 1.8); }
+// Small groups need more mechanical stimulation — factor < 1 compresses the target (more specials)
+// 2 players → 0.71 (tighter), 4 players → 1.0 (baseline), 8+ players → 1.3+ (looser, natural chaos)
+function _dirPlayerFactor(cnt)  { return _dirClamp(Math.sqrt(cnt / 4), 0.55, 1.4); }
+
+function _dirQCategory(item) {
+  if (!item) return null;
+  const c = (item.c || item.type || '').toUpperCase().trim();
+  if (_DIR_Q_META[c]) return c;
+  // Substring fallbacks for BT category naming variations
+  if (c.includes('GROUP') && c.includes('SHOT')) return 'GROUP SHOTS';
+  if (c.includes('SHOT'))      return 'SHOTS';
+  if (c.includes('GROUP') && c.includes('DRINK')) return 'GROUP DRINKING';
+  if (c.includes('DRINK') || c.includes('TOMAD')) return 'DRINKING';
+  if (c.includes('CHAOS'))     return 'CHAOS EVENT';
+  if (c.includes('CONFESS'))   return 'CONFESSION';
+  if (c.includes('EMOCIONAL') || c.includes('DAMAGE')) return 'EMOTIONAL DAMAGE';
+  if (c.includes('ATTRACT'))   return 'ATTRACTION';
+  if (c.includes('DARE'))      return 'DARE';
+  if (c.includes('CONNECT') || c.includes('CONEXI')) return 'CONNECTIONS';
+  if (c.includes('STORY') || c.includes('HISTOR'))   return 'STORIES';
+  if (c.includes('IDENTITY') || c.includes('IDENTI')) return 'IDENTITY';
+  if (c.includes('REFLECT'))   return 'REFLECTION';
+  if (c.includes('PERSPECT'))  return 'PERSPECTIVE';
+  if (c.includes('SAFE'))      return 'SAFE';
+  // Default: unknown BT categories still contribute 2 pressure
+  return 'CONNECTIONS';
+}
+
+function _dirWeightedPick(weights) {
+  const entries = Object.entries(weights);
+  let total = 0; for (const [,w] of entries) total += w;
+  let r = Math.random() * total;
+  for (const [k,w] of entries) { r -= w; if (r <= 0) return k; }
+  return entries[entries.length-1][0];
+}
+
+function _dirEligibleWeights(phaseKey, playerId) {
+  const raw = _DIR_POOL_WEIGHTS[phaseKey] || _DIR_POOL_WEIGHTS.sober;
+  const out = {};
+  for (const [pool, weight] of Object.entries(raw)) {
+    const cooldownReq = _DIR_POOL_COOLDOWNS[pool] || 2;
+    const lastFired   = Director.poolCooldowns[pool] !== undefined ? Director.poolCooldowns[pool] : 999;
+    if (lastFired < cooldownReq) continue;           // still cooling
+    if (Director.lastPoolFired === pool) continue;   // never same pool twice in a row
+    const hasCards = (dynamicBanks[pool] && dynamicBanks[pool].length > 0)
+                  || (activeBlackoutBanks[pool] && activeBlackoutBanks[pool].length > 0);
+    if (!hasCards) continue;
+    if (playerId !== undefined && isCooling(pool, 1, playerId)) continue;
+    out[pool] = weight;
+  }
+  // Always guarantee at least drinking as fallback
+  if (Object.keys(out).length === 0 && dynamicBanks.drinking && dynamicBanks.drinking.length > 0) {
+    out.drinking = 1;
+  }
+  return out;
+}
+
+// Age all pool cooldowns by 1 card
+function _dirAgeCooldowns() {
+  for (const pool of Object.keys(Director.poolCooldowns)) {
+    Director.poolCooldowns[pool]++;
+  }
+}
+
+// Account for a card being dealt (called from both inject paths)
+function _dirAccountCard(item, wasSpecial) {
+  Director.cardsDrawn++;
+  _dirAgeCooldowns();
+
+  if (wasSpecial) {
+    Director.specialPressure = 0;
+    const poolKey = item.type || 'drinking';
+    Director.poolCooldowns[poolKey] = 0;
+    Director.lastPoolFired = poolKey;
+    Director.intensityScore += _DIR_INTENSITY.blackoutSpecial;
+    return;
+  }
+
+  // Normal card — accumulate pressure and intensity
+  const cat  = _dirQCategory(item);
+  const meta = cat ? _DIR_Q_META[cat] : null;
+  Director.specialPressure += meta ? Math.max(1, meta.pressure) : 1;
+
+  if (cat === 'SHOTS' || cat === 'GROUP SHOTS') {
+    Director.intensityScore += _DIR_INTENSITY.shot;
+  } else if (cat === 'CHAOS EVENT' || cat === 'EVENTO CHAOS') {
+    Director.intensityScore += _DIR_INTENSITY.chaos;
+  } else if (cat === 'GROUP DRINKING' || cat === 'TOMADERA GRUPAL') {
+    Director.intensityScore += _DIR_INTENSITY.groupExposure;
+  } else if (cat === 'CONFESSION' || cat === 'EXPOSURE' || cat === 'DARE') {
+    Director.intensityScore += _DIR_INTENSITY.confession;
+  } else {
+    Director.intensityScore += _DIR_INTENSITY.normal;
+  }
+
+  Director.recentCategories.push(cat || 'unknown');
+  if (Director.recentCategories.length > 8) Director.recentCategories.shift();
+}
+
+// Calculate spawn probability for the current moment
+function _dirSpawnChance(filteredDeckSize, currentItem, phaseOverride) {
+  const phaseKey   = phaseOverride || _dirGetGlobalPhase();
+  const baseTarget = _DIR_PHASE_TARGETS[phaseKey] || 6;
+  const df         = _dirDeckFactor(filteredDeckSize);
+  const pf         = _dirPlayerFactor(playerCount);
+  const dynTarget  = baseTarget * df * pf;
+
+  let sc = Director.specialPressure / dynTarget;
+
+  if (currentItem) {
+    const cat  = _dirQCategory(currentItem);
+    const meta = cat ? _DIR_Q_META[cat] : null;
+    if (meta && meta.mult !== undefined) sc *= (1 + meta.mult);
+  }
+
+  return _dirClamp(sc, 0.02, 0.95);
+}
+
+// Deadlock guard: if all pools are cooling, force-reset the softest ones
+function _dirResolveCooldownDeadlock(phaseKey, playerId) {
+  if (Object.keys(_dirEligibleWeights(phaseKey, playerId)).length > 0) return;
+  for (const pool of ['drinking','group','shots','blackout']) {
+    Director.poolCooldowns[pool] = 999;
+  }
+}
+
+// Shot-chain guard: true if ≥3 shots fired in last 6 cards of resultArray
+function _dirShotChainActive(resultArray) {
+  let n = 0;
+  for (const c of resultArray.slice(-6)) {
+    if (c.type === 'shots' || c.type === 'groupshots' || c.c === 'SHOTS' || c.c === 'GROUP SHOTS') n++;
+  }
+  return n >= 3;
+}
+
+// ── State-aware card selection — replaces the old switch/case waterfall ───────
 function shouldInjectBlackoutCard(currentPlayer) {
   if (!blackoutMode) return null;
-  const phase       = getPlayerPhase(currentPlayer).key;
-  const lastSpecial = lastSpecialByPlayer[currentPlayer];
-  const hasBlockingEffect = playerHasBlockingEffect(currentPlayer);
-  const p = currentPlayer; // shorthand for passing to isCooling / drawDynamic
-  const r = Math.random();
-  let injected    = null;
-  let isSpecialCard = false;
 
-  // ── Per-player helpers ────────────────────────────────────────────────────
-  // canDrink / canShots / canGroup all check THIS player's recent history only.
-  const canDrink  = (type) => !hasBlockingEffect && !isCooling(type, 2, p);
-  const canShots  = ()     => canDrink('shots')      && lastSpecial !== 'shots';
-  const canGroup  = ()     => !hasBlockingEffect      && !isCooling('group', 1, p); // group now has cooldown
-  const canGShots = ()     => canDrink('groupshots') && lastSpecial !== 'groupshots';
+  const currentItem = (deck && deck[idx]) ? deck[idx] : null;
 
-  switch (phase) {
+  // Account for this question's pressure contribution
+  if (currentItem) _dirAccountCard(currentItem, false);
 
-    // ── SOBER: mostly normal questions, very rare drinking ─────────────────────
-    case 'sober':
-      if (r < 0.30 && canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      } else if (r < 0.42 && canGroup()) {
-        injected = drawDynamic('group', p);
-      }
-      break;
+  // Effective phase = more advanced of per-player (shots) vs global (intensity)
+  const perPlayerPhase = getPlayerPhase(currentPlayer).key;
+  const globalPhase    = _dirGetGlobalPhase();
+  const pi = _DIR_PHASE_ORDER.indexOf(perPlayerPhase);
+  const gi = _DIR_PHASE_ORDER.indexOf(globalPhase);
+  const effectivePhase = _DIR_PHASE_ORDER[Math.max(pi, gi)];
 
-    // ── WARMUP: social drinking starts ────────────────────────────────────────
-    case 'warmup':
-      if (r < 0.45 && canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      } else if (r < 0.60 && canShots()) {
-        injected = drawDynamic('shots', p); isSpecialCard = true;
-      } else if (r < 0.75 && canGroup()) {
-        injected = drawDynamic('group', p);
-      }
-      break;
+  const filteredSize = deck ? deck.filter(isPlayableCard).length : 300;
 
-    // ── BUZZED: first real buzz, status enters, light chaos ───────────────────
-    case 'buzzed':
-      if (r < 0.20 && lastSpecial !== 'status' && !isCooling('status', 1, p)) {
-        injected = drawDynamic('status', p); isSpecialCard = true;
-      } else if (r < 0.38 && canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      } else if (r < 0.52 && canShots()) {
-        injected = drawDynamic('shots', p); isSpecialCard = true;
-      } else if (r < 0.65 && canGroup()) {
-        injected = drawDynamic('group', p);
-      } else if (r < 0.78 && !isCooling('blackout', 1, p)) {
-        injected = drawDynamic('blackout', p);
-      }
-      break;
-
-    // ── TIPSY: vulnerability opens, social pressure mounts ────────────────────
-    case 'tipsy':
-      if (r < 0.18 && lastSpecial !== 'status' && !isCooling('status', 1, p)) {
-        injected = drawDynamic('status', p); isSpecialCard = true;
-      } else if (r < 0.34 && canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      } else if (r < 0.48 && canShots()) {
-        injected = drawDynamic('shots', p); isSpecialCard = true;
-      } else if (r < 0.60 && canGroup()) {
-        injected = drawDynamic('group', p);
-      } else if (r < 0.72 && !isCooling('blackout', 1, p)) {
-        injected = drawDynamic('blackout', p);
-      } else if (!isCooling('story', 1, p)) {
-        injected = drawDynamic('story', p);
-      }
-      break;
-
-    // ── DRUNK: instability, louder energy ─────────────────────────────────────
-    case 'drunk':
-      if (r < 0.16 && !isCooling('story', 1, p)) {
-        injected = drawDynamic('story', p);
-      } else if (r < 0.30 && !isCooling('blackout', 1, p)) {
-        injected = drawDynamic('blackout', p);
-      } else if (r < 0.42 && lastSpecial !== 'mini' && !isCooling('mini', 1, p)) {
-        injected = drawDynamic('mini', p); isSpecialCard = true;
-      } else if (r < 0.55 && canShots()) {
-        injected = drawDynamic('shots', p); isSpecialCard = true;
-      } else if (canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      }
-      break;
-
-    // ── WASTED: systemic corruption, escalating chaos ─────────────────────────
-    case 'wasted':
-      if (r < 0.20 && !isCooling('chaos', 1, p) && lastSpecial !== 'chaos') {
-        injected = drawDynamic('chaos', p); isSpecialCard = true;
-      } else if (r < 0.32 && canGShots()) {
-        injected = drawDynamic('groupshots', p); isSpecialCard = true;
-      } else if (r < 0.44 && !isCooling('blackout', 1, p)) {
-        injected = drawDynamic('blackout', p);
-      } else if (r < 0.58 && canShots()) {
-        injected = drawDynamic('shots', p); isSpecialCard = true;
-      } else if (canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      }
-      break;
-
-    // ── BLACKOUT: extreme chaos, maximum punishment density ───────────────────
-    case 'blackout':
-      if (r < 0.22 && !isCooling('chaos', 1, p) && lastSpecial !== 'chaos') {
-        injected = drawDynamic('chaos', p); isSpecialCard = true;
-      } else if (r < 0.36 && canGShots()) {
-        injected = drawDynamic('groupshots', p); isSpecialCard = true;
-      } else if (r < 0.48 && !isCooling('blackout', 1, p)) {
-        injected = drawDynamic('blackout', p);
-      } else if (r < 0.62 && canShots()) {
-        injected = drawDynamic('shots', p); isSpecialCard = true;
-      } else if (canDrink('drinking')) {
-        injected = drawDynamic('drinking', p);
-      }
-      break;
-
-    // ── TRANSCENDENCE: post-chaos calm, reflective ────────────────────────────
-    case 'transcending':
-      if (r < 0.30 && !isCooling('story', 2, p)) {
-        injected = drawDynamic('story', p);
-      } else if (r < 0.48 && !isCooling('blackout', 1, p)) {
-        injected = drawDynamic('blackout', p);
-      } else if (r < 0.60 && canDrink('drinking') && !isCooling('drinking', 2, p)) {
-        injected = drawDynamic('drinking', p);
-      } else if (r < 0.72 && canGShots() && !isCooling('groupshots', 2, p)) {
-        injected = drawDynamic('groupshots', p); isSpecialCard = true;
-      }
-      break;
+  // Shot chain guard
+  if (deck && _dirShotChainActive(deck.slice(0, idx))) {
+    // Steer away from shot pools this turn
+    Director.poolCooldowns['shots']      = 0;
+    Director.poolCooldowns['groupshots'] = 0;
   }
+
+  // Deadlock guard
+  _dirResolveCooldownDeadlock(effectivePhase, currentPlayer);
+
+  // Spawn check
+  const spawnChance = _dirSpawnChance(filteredSize, currentItem, effectivePhase);
+  if (Math.random() > spawnChance) return null;
+
+  // Pool selection
+  let weights = _dirEligibleWeights(effectivePhase, currentPlayer);
+  if (Object.keys(weights).length === 0) return null;
+
+  // Blocking effects: steer away from drinking pools
+  if (playerHasBlockingEffect(currentPlayer)) {
+    const alt = {...weights};
+    delete alt.shots; delete alt.drinking; delete alt.groupshots; delete alt.group;
+    if (Object.keys(alt).length > 0) weights = alt;
+  }
+
+  const chosenPool = _dirWeightedPick(weights);
+  const injected   = drawDynamic(chosenPool, currentPlayer);
   if (injected) {
-    lastSpecialByPlayer[currentPlayer] = isSpecialCard ? injected.type : null;
+    lastSpecialByPlayer[currentPlayer] = injected.type || null;
+    _dirAccountCard(injected, true);
   }
   return injected;
 }
@@ -2078,84 +2286,80 @@ function shouldInjectBlackoutCard(currentPlayer) {
 function injectBlackoutMode(deck) {
   if (!blackoutMode) return deck;
   initDynamicBanks();
+  directorReset();
+
   const t = translations[currentLanguage];
-  const result = [];
-  const playableCount = deck.filter(isPlayableCard).length;
-  const midThreshold  = Math.floor(playableCount * 0.40);
-  let playableSeen = 0;
-  let firstGroupInjected = false;
+  const result  = [];
+  const filteredSize = deck.filter(isPlayableCard).length;
+
+  let firstGroupInjected   = false;
   let lastDeckCardWasGroup = false;
-
-  // Weighted pools control WHAT gets injected per game phase.
-  // drinking appears multiple times = higher weight. 
-  // shouldInjectBlackoutCard handles phase-specific rules (status, chaos, etc).
-  // These pools handle the baseline drinking/shots/group pacing so players
-  // actually accumulate shots and move through phases.
-  const earlyPool = ['drinking','drinking','group','shots','drinking','group','status','drinking'];
-  const midPool   = ['shots','drinking','group','blackout','status','mini','chaos','story','drinking','shots'];
-  const latePool  = ['chaos','groupshots','blackout','shots','story','drinking','groupshots','chaos','shots'];
-
-  // Rotate virtual player per playable card so per-player cooldowns are
-  // distributed evenly rather than all assigned to player 1.
   let virtualP = 1;
   const advanceVirtualP = () => { virtualP = (virtualP % playerCount) + 1; };
+
+  // Pre-warm pressure — start at full baseTarget so first special fires quickly
+  Director.specialPressure = _DIR_PHASE_TARGETS['sober'];
 
   for (let i = 0; i < deck.length; i++) {
     const item = deck[i];
 
-    // ── First playable card: ritual group shot to open ─────────────────────
+    // ── Opening ritual group shot ─────────────────────────────────────────────
     if (isPlayableCard(item) && !firstGroupInjected) {
       firstGroupInjected = true;
       const firstCard = drawDynamic('groupshots', virtualP);
       if (firstCard) {
-        firstCard.q = t.firstRoundShots || '🔥 FIRST ROUND — Everyone takes a shot! 🔥';
-        firstCard.c = 'GROUP SHOTS';
-        firstCard.type = 'groupshots';
+        firstCard.q           = t.firstRoundShots || '🔥 FIRST ROUND — Everyone takes a shot! 🔥';
+        firstCard.c           = 'GROUP SHOTS';
+        firstCard.type        = 'groupshots';
         firstCard.isGroupShot = true;
-        firstCard.shotValue = 1;
+        firstCard.shotValue   = 1;
         firstCard.conditional = false;
-        firstCard.blackout = true;
-        firstCard._bid = ++blackoutCardSeq;
-        firstCard._injected = true;
+        firstCard.blackout    = true;
+        firstCard._bid        = ++blackoutCardSeq;
+        firstCard._injected   = true;
         result.push(firstCard);
         lastDeckCardWasGroup = true;
+        _dirAccountCard(firstCard, true);
       }
     }
 
+    // ── Evaluate injection before each playable card ───────────────────────────
     if (isPlayableCard(item)) {
-      playableSeen++;
-      const isEarly = playableSeen <= OPENING_LENGTH;
-      const isMid   = playableSeen > OPENING_LENGTH && playableSeen <= midThreshold;
-      // Injection probability: aggressive early so shots accumulate and phases advance
-      const injectChance = isEarly ? 0.55 : isMid ? 0.45 : 0.35;
+      _dirAccountCard(item, false);
 
-      if (Math.random() < injectChance) {
-        const pool = isEarly ? earlyPool : isMid ? midPool : latePool;
-        let injected = null;
-        // Try up to 4 times to find a non-cooling type for this virtual player
-        for (let attempt = 0; attempt < 4 && !injected; attempt++) {
-          const type = pool[Math.floor(Math.random() * pool.length)];
-          if (!isCooling(type, 2, virtualP)) {
-            injected = drawDynamic(type, virtualP);
+      const globalPhase  = _dirGetGlobalPhase();
+      const spawnChance  = _dirSpawnChance(filteredSize, item, globalPhase);
+
+      if (Math.random() <= spawnChance) {
+        _dirResolveCooldownDeadlock(globalPhase, virtualP);
+        const weights  = _dirEligibleWeights(globalPhase, virtualP);
+        let injected   = null;
+
+        if (Object.keys(weights).length > 0) {
+          // Shot chain guard: suppress shots if we're on a run
+          const safeWeights = _dirShotChainActive(result) ? (function(){
+            const w = {...weights}; delete w.shots; delete w.groupshots; return w;
+          })() : weights;
+          const pick = _dirWeightedPick(Object.keys(safeWeights).length > 0 ? safeWeights : weights);
+          for (let attempt = 0; attempt < 3 && !injected; attempt++) {
+            if (!isCooling(pick, 2, virtualP)) injected = drawDynamic(pick, virtualP);
           }
         }
-        // Fallback: drinking always works
         if (!injected) injected = drawDynamic('drinking', virtualP);
 
         if (injected) {
-          // Post-group protection: no drinking/shots right after a group card
           const blocked = lastDeckCardWasGroup && isImmediateDrinkingCard(injected);
           if (!blocked) {
             result.push(injected);
             lastDeckCardWasGroup = isGroupCard(injected);
+            _dirAccountCard(injected, true);
           } else {
-            lastDeckCardWasGroup = false;
+            // Injection blocked by consecutive-group rule: bonus pressure so we retry soon
+            Director.specialPressure += 2;
           }
         }
       }
 
-      // Advance virtual player after each playable card (wildcards and group
-      // cards don't change who's "up", matching live gameplay rules)
       if (item.type !== 'wildcard' && !isGroupCard(item)) {
         advanceVirtualP();
       }
@@ -2959,6 +3163,7 @@ function resetGame() {
   wildcardHistoryByPlayer  = {};
   recentCategoriesByPlayer = {};
   lastServedByType         = {};
+  directorReset(); // Dynamic Director Engine — clear all pressure/intensity/cooldown state
 
   if (blackoutMode) {
     initDynamicBanks(); // also resets recentCategories, openingCardsDealt, lastSpecialByPlayer
@@ -3124,7 +3329,9 @@ function suBuildNameGrid() {
   for (let i = 1; i <= suPlayers; i++) {
     const label = prefix + i;
     const val = suPlayerNames[i] || '';
+    const showX = suPlayers > 2;
     html += `<div class="su-name-tile">
+      ${showX ? `<button class="su-name-tile-remove" onclick="suRemovePlayer(${i})" title="Eliminar">×</button>` : ''}
       <div class="su-name-tile-label">${label}</div>
       <input class="su-name-tile-input" type="text" maxlength="20" autocomplete="off"
         placeholder="${label}" value="${val.replace(/"/g,'&quot;')}"
@@ -3134,6 +3341,24 @@ function suBuildNameGrid() {
     </div>`;
   }
   grid.innerHTML = html;
+}
+
+function suRemovePlayer(n) {
+  if (suPlayers <= 2) return;
+  // Shift names down
+  const newNames = {};
+  for (let i = 1; i <= suPlayers; i++) {
+    if (i === n) continue;
+    const newIdx = i < n ? i : i - 1;
+    if (suPlayerNames[i]) newNames[newIdx] = suPlayerNames[i];
+  }
+  suPlayerNames = newNames;
+  suPlayers--;
+  document.getElementById('suNum').value = suPlayers;
+  document.getElementById('suMinus').disabled = suPlayers <= 2;
+  document.getElementById('suPlus').disabled  = suPlayers >= 30;
+  document.getElementById('suGroupPill').classList.toggle('show', suPlayers > 2);
+  suBuildNameGrid();
 }
 
 function suPickMode(m) {
@@ -3289,13 +3514,30 @@ function suLaunch() {
 }
 
 // Called from splash "Play" button
+// Called from splash "Play" button
+let splashMode = 'bt'; // preselected mode on splash
+
+function spSelectMode(m) {
+  splashMode = m;
+  document.getElementById('spPillBT').classList.toggle('active', m === 'bt');
+  document.getElementById('spPillBK').classList.toggle('active', m === 'bk');
+  // Apply visual colorimetry immediately
+  const wantBK = m === 'bk';
+  blackoutMode = wantBK;
+  document.body.classList.toggle('blackout-mode', wantBK);
+  localStorage.setItem('bt-blackout-mode', wantBK ? '1' : '0');
+  if (wantBK) buildBlackoutBanks(currentLanguage);
+  updateBlackoutToggleUI();
+}
+
 function startGame() {
-  suStep = 0; suMode = null; suCatState = {};
+  suStep = 0; suMode = splashMode; suCatState = {};
   suPlayerNames = {};
   suPlayers = 2;
   suShowStep(0, 'fwd');
-  document.getElementById('suCardBT').classList.remove('chosen');
-  document.getElementById('suCardBK').classList.remove('chosen');
+  // Pre-select mode from splash pill
+  document.getElementById('suCardBT').classList.toggle('chosen', splashMode === 'bt');
+  document.getElementById('suCardBK').classList.toggle('chosen', splashMode === 'bk');
   document.getElementById('suNum').value = 2;
   document.getElementById('suMinus').disabled = true;
   document.getElementById('suPlus').disabled  = false;
@@ -3343,6 +3585,11 @@ function goHome() {
   document.getElementById('suCardBT').classList.remove('chosen');
   document.getElementById('suCardBK').classList.remove('chosen');
   suBuildNameGrid();
+
+  // Sync splash mode pill to current mode
+  splashMode = blackoutMode ? 'bk' : 'bt';
+  document.getElementById('spPillBT').classList.toggle('active', splashMode === 'bt');
+  document.getElementById('spPillBK').classList.toggle('active', splashMode === 'bk');
 
   const chkAll=document.getElementById('chkAll');
   if(chkAll) chkAll.checked=true;
@@ -3392,8 +3639,6 @@ document.addEventListener('click',e=>{
 function onChkAll(el){
   if(el.checked){selectedCatsState=null;document.querySelectorAll('.cat-chk').forEach(c=>c.checked=false);}
   updateCatBtnText();
-  // In Blackout, don't reshuffle mid-game — category changes apply on next game
-  if(blackoutMode && idx > 0) return;
   resetGame();
 }
 function onChkCat(){
@@ -3402,8 +3647,6 @@ function onChkCat(){
   const chkAll=document.getElementById('chkAll');
   if(chkAll) chkAll.checked=!checked.length;
   updateCatBtnText();
-  // In Blackout, don't reshuffle mid-game — category changes apply on next game
-  if(blackoutMode && idx > 0) return;
   resetGame();
 }
 
@@ -3673,6 +3916,8 @@ function updateUITexts() {
   document.getElementById('spPlay').textContent=t.play;
   const bbl=document.getElementById('spBadgeBTLabel'); if(bbl) bbl.textContent=currentLanguage==='ES'?'Breaking Talk':'Breaking Talk';
   const bkl=document.getElementById('spBadgeBKLabel'); if(bkl) bkl.textContent=currentLanguage==='ES'?'Blackout':'Blackout';
+  const pillBT=document.getElementById('spPillBTLabel'); if(pillBT) pillBT.textContent='Breaking Talk';
+  const pillBK=document.getElementById('spPillBKLabel'); if(pillBK) pillBK.textContent='Blackout';
   document.getElementById('homeLabel').textContent=t.home;
   document.getElementById('skipLabel').textContent=t.skip;
   document.getElementById('nextLabel').textContent=t.next;
@@ -3706,12 +3951,16 @@ function applyLanguageData(lang) {
   applyMode(['dark','light','neon'].includes(savedMode)?savedMode:'dark');
   blackoutMode=localStorage.getItem('bt-blackout-mode')==='1';
   document.body.classList.toggle('blackout-mode',blackoutMode);
+  splashMode = blackoutMode ? 'bk' : 'bt';
   const savedLang=localStorage.getItem('bt-lang');
   const lang=(savedLang==='EN'||savedLang==='ES')?savedLang:'EN';
   currentLanguage=lang;
   document.getElementById('langEN').classList.toggle('active',lang==='EN');
   document.getElementById('langES').classList.toggle('active',lang==='ES');
   applyLanguageData(lang);
+  // Sync splash pills after language data applied
+  document.getElementById('spPillBT').classList.toggle('active', splashMode === 'bt');
+  document.getElementById('spPillBK').classList.toggle('active', splashMode === 'bk');
   renderPlayersBar();
 })();
 </script>
