@@ -1185,6 +1185,7 @@ body.light-mode .su-dot.active{background:#141414;}
 body.light-mode .su-player-picker{background:var(--surface);}
 body.neon-mode .su-player-picker{border-color:rgba(0,229,255,.16);}
 body.blackout-mode .su-player-picker{border-color:rgba(255,23,68,.2);}
+body.light-mode.blackout-mode .su-player-picker{background:var(--surface);border-color:rgba(200,0,40,.28);}
 .su-pp-btn{
   width:52px;height:56px;background:transparent;border:none;cursor:pointer;
   font-size:20px;font-weight:300;color:var(--muted);transition:all var(--transition-base);
@@ -1194,12 +1195,14 @@ body.blackout-mode .su-player-picker{border-color:rgba(255,23,68,.2);}
 .su-pp-btn:disabled{opacity:.2;cursor:not-allowed;}
 body.light-mode .su-pp-btn:hover:not(:disabled){color:var(--text);background:var(--surface2);}
 body.blackout-mode .su-pp-btn:hover:not(:disabled){color:#FF1744;background:rgba(255,23,68,.07);}
+body.light-mode.blackout-mode .su-pp-btn:hover:not(:disabled){color:#CC0020;background:rgba(200,0,40,.06);}
 .su-pp-mid{
   flex:1;text-align:center;
   border-left:1px solid var(--border);border-right:1px solid var(--border);padding:8px 0;
 }
 body.neon-mode .su-pp-mid{border-color:rgba(0,229,255,.12);}
 body.blackout-mode .su-pp-mid{border-color:rgba(255,23,68,.16);}
+body.light-mode.blackout-mode .su-pp-mid{border-color:rgba(200,0,40,.2);}
 .su-pp-num{
   font-family:'Syne',sans-serif;font-size:30px;font-weight:800;
   color:var(--text);line-height:1;display:block;
@@ -1212,6 +1215,7 @@ body.blackout-mode .su-pp-mid{border-color:rgba(255,23,68,.16);}
 .su-pp-num::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
 body.neon-mode .su-pp-num{color:var(--c-cyan);text-shadow:0 0 18px rgba(0,229,255,.4);}
 body.blackout-mode .su-pp-num{color:#FF1744;text-shadow:0 0 12px rgba(255,23,68,.4);}
+body.light-mode.blackout-mode .su-pp-num{color:#CC0020;text-shadow:none;}
 .su-pp-lbl{
   font-family:'Space Grotesk',sans-serif;font-size:9px;
   color:var(--muted);letter-spacing:.5px;display:block;margin-top:1px;
@@ -1378,6 +1382,7 @@ body.light-mode.blackout-mode .player-btn{color:rgba(28,10,16,.4);}
 body.light-mode .su-picker-sticky{background:var(--bg);}
 body.neon-mode .su-picker-sticky{background:var(--bg);}
 body.blackout-mode .su-picker-sticky{background:#060309;}
+body.light-mode.blackout-mode .su-picker-sticky{background:var(--bg);}
 
 /* ── Setup player name grid ── */
 .su-name-grid{
