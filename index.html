@@ -16,7 +16,7 @@
 /* ── Root tokens ── */
 :root{
   --card-w:min(88vw,340px);
-  --card-h:min(72vh,460px);
+  --card-h:min(62vh,400px);
   --c-cyan:#00E5FF;
   --c-magenta:#FF47D1;
   --c-violet:#8B5CF6;
@@ -672,14 +672,31 @@ body.blackout-mode .ghost{background:rgba(255,23,68,.02);border-color:rgba(255,2
   border-radius:var(--radius-card);
   will-change:transform;transform-origin:center bottom;
   touch-action:none;user-select:none;-webkit-user-select:none;
+  perspective:1200px;
 }
 .card:active{cursor:grabbing;}
 
 .card-face{
   position:absolute;inset:0;border-radius:var(--radius-card);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  overflow:hidden;transition:opacity .28s ease;
+  overflow:hidden;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  transition:background .45s,box-shadow .45s;
 }
+
+/* Inner rotating wrapper */
+.card-inner{
+  position:absolute;inset:0;border-radius:var(--radius-card);
+  transform-style:preserve-3d;
+  transition:transform .52s cubic-bezier(.45,0,.25,1);
+  will-change:transform;
+}
+.card-inner.flipped{transform:rotateY(180deg);}
+/* front starts rotated away */
+.card-front-face-start{transform:rotateY(180deg);}
+.card-inner.flipped .card-back{pointer-events:none;}
+.card-inner:not(.flipped) .card-front{pointer-events:none;}
 
 /* ── Card Back (idle state) ── */
 .card-back{
@@ -720,7 +737,7 @@ body.light-mode.blackout-mode .card-back.blackout-back{
   border-color:rgba(255,23,68,.32)!important;
   box-shadow:0 12px 40px rgba(255,23,68,.1)!important;
 }
-.card-back.gone{opacity:0;pointer-events:none;}
+/* .card-back.gone — superseded by 3D flip */
 
 /* Neon grid on card back */
 .card-back::before{
@@ -844,11 +861,9 @@ body.blackout-mode .card-back.wildcard-back .back-swipe{
 
 /* ── Card Front (question) ── */
 .card-front{
-  opacity:0;pointer-events:none;position:absolute;inset:0;
-  overflow:hidden;border-radius:var(--radius-card);
-  transition:opacity .28s ease,background .45s,box-shadow .45s;
+  transform:rotateY(180deg);
+  /* pointer-events toggled via .card-inner.flipped selector above */
 }
-.card-front.vis{opacity:1;pointer-events:auto;}
 
 /* Inner frame — elegant subtle border */
 .inner-frame{
@@ -1574,6 +1589,7 @@ body.blackout-mode .su-name-tile-remove{border-color:rgba(255,23,68,.3);}
   <div class="deck">
     <div class="ghost ghost-2"></div><div class="ghost ghost-1"></div>
     <div class="card" id="card">
+      <div class="card-inner" id="cardInner">
       <div class="card-face card-back" id="cBack">
         <div class="back-badge" id="backBadge">Breaking Talk</div>
         <div class="back-orb" id="backOrb">💬</div>
@@ -1596,6 +1612,7 @@ body.blackout-mode .su-name-tile-remove{border-color:rgba(255,23,68,.3);}
           <div class="card-bottom"><div class="q-num" id="qNum" style="display:none"></div></div>
         </div>
       </div>
+      </div><!-- /card-inner -->
       <div class="sw-no" id="swNo">Skip</div>
       <div class="sw-yes" id="swYes">Keep</div>
     </div>
@@ -2835,8 +2852,7 @@ function renderCard() {
   verifyAndSwapCardForCooldown();
   const c = document.getElementById('card');
   c.style.transform = ''; c.style.opacity = '1'; c.style.transition = '';
-  document.getElementById('cBack').classList.remove('gone');
-  document.getElementById('cFront').classList.remove('vis');
+  document.getElementById('cardInner').classList.remove('flipped');
   c.classList.add('popin');
   setTimeout(()=>c.classList.remove('popin'),350);
   document.getElementById('swYes').style.opacity = '0';
@@ -2867,7 +2883,6 @@ function renderCard() {
 
   if (item && showFrontImmediately(item)) {
     flipped = true;
-    document.getElementById('cBack').classList.add('gone');
     showFront();
   }
 }
@@ -3012,8 +3027,7 @@ function showFront() {
     });
   }
 
-  document.getElementById('cBack').classList.add('gone');
-  front.classList.add('vis');
+  document.getElementById('cardInner').classList.add('flipped');
 }
 
 // ══════════════════════════════════════════════════════════════════
