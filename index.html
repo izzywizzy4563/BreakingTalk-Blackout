@@ -65,7 +65,7 @@ body{
   font-family:'Space Grotesk',sans-serif;
   color:var(--text);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-height:100vh;
+  min-height:100vh;min-height:-webkit-fill-available;
   position:relative;overflow:hidden;
   transition:background .45s,color .45s;
 }
@@ -141,7 +141,7 @@ body.neon-mode .sp-ghost{
   position:absolute;inset:0;opacity:0;transition:opacity .45s;pointer-events:none;
   background-image:linear-gradient(rgba(255,179,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,179,0,.035) 1px,transparent 1px);
   background-size:44px 44px;
-  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);
 }
 body.neon-mode .sp-grid{opacity:1;}
 
@@ -158,7 +158,7 @@ body.neon-mode .sp-grid{opacity:1;}
   color:var(--muted);
   font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
   transition:all var(--transition-base);
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .lang-btn:hover{border-color:rgba(245,242,255,.3);color:var(--text);background:var(--surface2);}
 .lang-btn.active{background:var(--text);color:var(--bg);border-color:var(--text);}
@@ -174,7 +174,7 @@ body.neon-mode .lang-btn.active{background:var(--c-menu);color:#050816;border-co
   display:flex;align-items:center;gap:5px;
   font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
   transition:all var(--transition-base);z-index:1;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .sp-mode-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .sp-mode-btn:hover{border-color:rgba(245,242,255,.3);color:var(--text);background:var(--surface2);}
@@ -285,7 +285,7 @@ body.neon-mode .sp-play{box-shadow:0 0 48px rgba(255,179,0,.45),0 0 80px rgba(25
   letter-spacing:.5px;
   color:var(--muted);cursor:pointer;
   transition:all var(--transition-base);
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .sp-mode-pill:hover{background:var(--surface2);color:var(--text);}
 .sp-mode-pill-bt.active{
@@ -336,7 +336,7 @@ body.blackout-mode .sp-mode-pill-bk.active{border-color:#FF1744;background:rgba(
   font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;
   color:var(--muted);cursor:pointer;
   transition:all var(--transition-base);flex-shrink:0;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .home-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--border2);}
 .home-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -358,7 +358,7 @@ body.blackout-mode .home-btn:hover{border-color:rgba(255,23,68,.5);color:#F0EAF5
   color:var(--muted);cursor:pointer;outline:none;text-align:left;
   transition:all var(--transition-base);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .cat-btn:hover{border-color:rgba(245,242,255,.25);color:var(--text);background:var(--surface2);}
 
@@ -376,7 +376,7 @@ body.blackout-mode .cat-btn:hover{border-color:rgba(255,23,68,.5);color:#F0EAF5;
   border-radius:12px;padding:8px 0;
   display:none;flex-direction:column;gap:1px;
   z-index:100;max-height:260px;overflow-y:auto;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
   box-shadow:0 20px 60px rgba(0,0,0,.65);
 }
 
@@ -409,7 +409,7 @@ body.blackout-mode .cat-btn:hover{border-color:rgba(255,23,68,.5);color:#F0EAF5;
   cursor:pointer;color:var(--muted);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;transition:all var(--transition-base);
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .mode-toggle:hover{background:var(--surface2);color:var(--text);border-color:rgba(245,242,255,.25);}
 .mode-toggle svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -437,7 +437,7 @@ body.blackout-mode .mode-toggle:hover{border-color:rgba(255,23,68,.6);color:#F0E
   background:var(--surface);
   border:1px solid var(--border);border-radius:var(--radius-sm);
   transition:all .3s;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
   position:relative;
 }
 
@@ -487,7 +487,7 @@ body.blackout-mode .player-btn.group-active{background:#FF1744;color:#06030A;box
   border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-sm);
   color:var(--muted);cursor:pointer;font-size:15px;font-weight:300;
   transition:all var(--transition-base);flex-shrink:0;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .add-player-btn:hover,.remove-player-btn:hover{
   border-color:rgba(255,179,0,.4);color:var(--c-menu);
@@ -499,7 +499,7 @@ body.blackout-mode .player-btn.group-active{background:#FF1744;color:#06030A;box
 .name-edit-overlay{
   position:fixed;inset:0;z-index:300;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   animation:fadeIn .18s ease both;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -608,6 +608,7 @@ body.blackout-mode .ghost{background:rgba(255,23,68,.02);border-color:rgba(255,2
   border-radius:var(--radius-card);
   will-change:transform;transform-origin:center bottom;
   touch-action:none;user-select:none;-webkit-user-select:none;
+  -webkit-perspective:1200px;
   perspective:1200px;
 }
 .card:active{cursor:grabbing;}
@@ -618,17 +619,21 @@ body.blackout-mode .ghost{background:rgba(255,23,68,.02);border-color:rgba(255,2
   overflow:hidden;
   -webkit-backface-visibility:hidden;
   backface-visibility:hidden;
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
   transition:background .45s,box-shadow .45s;
 }
 
 /* Inner rotating wrapper */
 .card-inner{
   position:absolute;inset:0;border-radius:var(--radius-card);
+  -webkit-transform-style:preserve-3d;
   transform-style:preserve-3d;
+  -webkit-transition:-webkit-transform .52s cubic-bezier(.45,0,.25,1);
   transition:transform .52s cubic-bezier(.45,0,.25,1);
   will-change:transform;
 }
-.card-inner.flipped{transform:rotateY(180deg);}
+.card-inner.flipped{-webkit-transform:rotateY(180deg);transform:rotateY(180deg);}
 /* front starts rotated away */
 .card-front-face-start{transform:rotateY(180deg);}
 .card-inner.flipped .card-back{pointer-events:none;}
@@ -667,7 +672,7 @@ body.neon-mode .card-back{
   background-image:linear-gradient(rgba(255,179,0,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,179,0,.028) 1px,transparent 1px);
   background-size:36px 36px;border-radius:var(--radius-card);opacity:0;
   transition:opacity .45s;
-  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 30%,transparent 80%);mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 30%,transparent 80%);
 }
 body.neon-mode .card-back::before{opacity:1;}
 
@@ -771,6 +776,7 @@ body.blackout-mode .card-back.wildcard-back .back-swipe{
 
 /* ── Card Front (question) ── */
 .card-front{
+  -webkit-transform:rotateY(180deg);
   transform:rotateY(180deg);
   /* pointer-events toggled via .card-inner.flipped selector above */
 }
@@ -911,7 +917,7 @@ body.blackout-mode .prog-fill{background:linear-gradient(90deg,#FF1744,#FF6D00);
   font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;
   color:var(--muted);cursor:pointer;
   transition:all var(--transition-base);
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .ghost-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .ghost-btn:hover{background:var(--surface2);color:var(--text);border-color:rgba(245,242,255,.2);}
@@ -1023,7 +1029,7 @@ body.blackout-mode #setup{background:#060309;}
   border:1px solid var(--border);background:var(--surface);border-radius:var(--radius-sm);
   font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;
   color:var(--muted);cursor:pointer;transition:all var(--transition-base);
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .su-back:hover{background:var(--surface2);color:var(--text);}
 .su-back svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -1037,7 +1043,7 @@ body.blackout-mode .su-back:hover{border-color:rgba(255,23,68,.55);color:var(--t
   width:30px;height:30px;border-radius:var(--radius-sm);
   border:1px solid var(--border);background:var(--surface);
   cursor:pointer;transition:all var(--transition-base);color:var(--muted);flex-shrink:0;
-  backdrop-filter:var(--blur-glass);
+  -webkit-backdrop-filter:var(--blur-glass);backdrop-filter:var(--blur-glass);
 }
 .su-theme-btn:hover{background:var(--surface2);color:var(--text);}
 .su-theme-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:opacity .2s;}
@@ -1078,7 +1084,7 @@ body.blackout-mode .su-dot.active{background:#FF1744;}
   display:flex;align-items:center;
   border:1px solid var(--border);border-radius:12px;
   overflow:hidden;background:var(--surface);margin-bottom:10px;
-  backdrop-filter:blur(12px) saturate(1.4);
+  -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
 }
 
 body.neon-mode .su-player-picker{border-color:rgba(255,179,0,.16);}
@@ -1606,7 +1612,7 @@ let player = 1;
 let deck = [];
 let idx = 0;
 let flipped = false;
-let history = [];
+let cardHistory = [];
 let playerEffects = {};
 let dragging = false, sx=0, sy=0, dx=0, dy=0;
 let selectedCatsState = null;
@@ -2406,14 +2412,14 @@ function drawWildcardForPlayer(playerId) {
   const pool = activeWildcards;
   if (!pool || pool.length === 0) return null;
   if (!wildcardHistoryByPlayer[playerId]) wildcardHistoryByPlayer[playerId] = [];
-  const history = wildcardHistoryByPlayer[playerId];
-  const recentSet = new Set(history.slice(-WILDCARD_COOLDOWN));
+  const wcHistory = wildcardHistoryByPlayer[playerId];
+  const recentSet = new Set(wcHistory.slice(-WILDCARD_COOLDOWN));
   const available = pool.filter(w => !recentSet.has(w.q));
   const chosen = available.length > 0
     ? available[Math.floor(Math.random() * available.length)]
     : pool[Math.floor(Math.random() * pool.length)]; // fallback
-  history.push(chosen.q);
-  if (history.length > RECENT_WINDOW) history.shift();
+  wcHistory.push(chosen.q);
+  if (wcHistory.length > RECENT_WINDOW) wcHistory.shift();
   return chosen;
 }
 
@@ -2899,7 +2905,7 @@ function showFront() {
 function _advance(dir) {
   const currentItem = deck[idx];
   animOut(dir, () => {
-    history.push({
+    cardHistory.push({
       item:currentItem,
       playerBefore:player,
       effectsBefore: JSON.parse(JSON.stringify(playerEffects)),
@@ -2974,9 +2980,9 @@ function toggleP(){
 }
 
 function prev() {
-  if (history.length===0) return;
+  if (cardHistory.length===0) return;
   animIn('left',()=>{
-    const entry = history.pop();
+    const entry = cardHistory.pop();
     player = entry.playerBefore;
     playerEffects = entry.effectsBefore ? JSON.parse(JSON.stringify(entry.effectsBefore)) : {};
     if (entry.shotsBefore) playerShots = {...entry.shotsBefore};
@@ -3027,8 +3033,8 @@ function updateProg() {
   document.getElementById('pFill').style.width = pct+'%';
   document.getElementById('pTxt').textContent = answeredQ+' / '+totalQ;
   const prevBtn = document.getElementById('prevBtn');
-  prevBtn.disabled = history.length===0;
-  prevBtn.style.opacity = history.length===0?'0.25':'1';
+  prevBtn.disabled = cardHistory.length===0;
+  prevBtn.style.opacity = cardHistory.length===0?'0.25':'1';
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -3059,7 +3065,7 @@ function resetGame() {
   frozenDeckTotal = completeDeck.filter(isPlayableCard).length; // lock total here
   idx = 0;
   flipped = false;
-  history = [];
+  cardHistory = [];
   document.getElementById('game').style.display = 'flex';
   document.getElementById('done').style.display = 'none';
   renderPlayersBar();
