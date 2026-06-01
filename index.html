@@ -2897,6 +2897,7 @@ function showFront() {
   }
 
   document.getElementById('cardInner').classList.add('flipped');
+  document.getElementById('pTxt').style.visibility = 'hidden';
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -3032,6 +3033,8 @@ function updateProg() {
   const pct = totalQ>0 ? Math.round((answeredQ/totalQ)*100) : 0;
   document.getElementById('pFill').style.width = pct+'%';
   document.getElementById('pTxt').textContent = answeredQ+' / '+totalQ;
+  // Keep visible only before the first flip; hidden once game is in progress
+  if (idx > 0 || flipped) document.getElementById('pTxt').style.visibility = 'hidden';
   const prevBtn = document.getElementById('prevBtn');
   prevBtn.disabled = cardHistory.length===0;
   prevBtn.style.opacity = cardHistory.length===0?'0.25':'1';
@@ -3071,6 +3074,7 @@ function resetGame() {
   renderPlayersBar();
   renderEffectsTray();
   updateBlackoutPhase();
+  document.getElementById('pTxt').style.visibility = 'visible';
   renderCard();
   updateProg();
 }
