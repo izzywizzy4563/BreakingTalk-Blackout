@@ -1017,7 +1017,7 @@ body.blackout-mode .ghost{border-color:rgba(255,23,68,.18);background:rgba(255,2
 
 
 body.neon-mode #setup{background:var(--bg);}
-body.blackout-mode:not(.light-mode) #setup{background:#060309;}
+body.blackout-mode #setup{background:#060309;}
 
 /* Setup topbar */
 .su-topbar{
@@ -1033,8 +1033,8 @@ body.blackout-mode:not(.light-mode) #setup{background:#060309;}
 }
 .su-back:hover{background:var(--surface2);color:var(--text);}
 .su-back svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-body.blackout-mode:not(.light-mode) .su-back{border-color:rgba(255,23,68,.25);color:rgba(240,234,245,.6);}
-body.blackout-mode:not(.light-mode) .su-back:hover{border-color:rgba(255,23,68,.55);color:var(--text);background:rgba(255,23,68,.07);}
+body.blackout-mode .su-back{border-color:rgba(255,23,68,.25);color:rgba(240,234,245,.6);}
+body.blackout-mode .su-back:hover{border-color:rgba(255,23,68,.55);color:var(--text);background:rgba(255,23,68,.07);}
 
 
 
@@ -1047,8 +1047,8 @@ body.blackout-mode:not(.light-mode) .su-back:hover{border-color:rgba(255,23,68,.
 }
 .su-theme-btn:hover{background:var(--surface2);color:var(--text);}
 .su-theme-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:opacity .2s;}
-body.blackout-mode:not(.light-mode) .su-theme-btn{border-color:rgba(255,23,68,.28);color:rgba(240,234,245,.6);}
-body.blackout-mode:not(.light-mode) .su-theme-btn:hover{border-color:rgba(255,23,68,.55);color:var(--text);background:rgba(255,23,68,.07);}
+body.blackout-mode .su-theme-btn{border-color:rgba(255,23,68,.28);color:rgba(240,234,245,.6);}
+body.blackout-mode .su-theme-btn:hover{border-color:rgba(255,23,68,.55);color:var(--text);background:rgba(255,23,68,.07);}
 
 
 body.neon-mode .su-theme-btn{border-color:rgba(255,179,0,.22);color:rgba(255,179,0,.6);}
@@ -1058,7 +1058,7 @@ body.neon-mode .su-theme-btn:hover{border-color:rgba(255,179,0,.48);color:var(--
 .su-dots{display:flex;gap:6px;align-items:center;}
 .su-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:all .3s;}
 .su-dot.active{width:20px;border-radius:3px;background:linear-gradient(90deg,var(--c-menu),var(--c-violet));}
-body.blackout-mode:not(.light-mode) .su-dot.active{background:#FF1744;}
+body.blackout-mode .su-dot.active{background:#FF1744;}
 
 
 /* Step wrapper */
@@ -1088,7 +1088,7 @@ body.blackout-mode:not(.light-mode) .su-dot.active{background:#FF1744;}
 }
 
 body.neon-mode .su-player-picker{border-color:rgba(255,179,0,.16);}
-body.blackout-mode:not(.light-mode) .su-player-picker{border-color:rgba(255,23,68,.2);}
+body.blackout-mode .su-player-picker{border-color:rgba(255,23,68,.2);}
 
 .su-pp-btn{
   width:52px;height:56px;background:transparent;border:none;cursor:pointer;
@@ -1098,14 +1098,14 @@ body.blackout-mode:not(.light-mode) .su-player-picker{border-color:rgba(255,23,6
 .su-pp-btn:hover:not(:disabled){color:var(--c-menu);background:rgba(255,179,0,.06);}
 .su-pp-btn:disabled{opacity:.2;cursor:not-allowed;}
 
-body.blackout-mode:not(.light-mode) .su-pp-btn:hover:not(:disabled){color:#FF1744;background:rgba(255,23,68,.07);}
+body.blackout-mode .su-pp-btn:hover:not(:disabled){color:#FF1744;background:rgba(255,23,68,.07);}
 
 .su-pp-mid{
   flex:1;text-align:center;
   border-left:1px solid var(--border);border-right:1px solid var(--border);padding:8px 0;
 }
 body.neon-mode .su-pp-mid{border-color:rgba(255,179,0,.12);}
-body.blackout-mode:not(.light-mode) .su-pp-mid{border-color:rgba(255,23,68,.16);}
+body.blackout-mode .su-pp-mid{border-color:rgba(255,23,68,.16);}
 
 .su-pp-num{
   font-family:'Syne',sans-serif;font-size:30px;font-weight:800;
@@ -1118,7 +1118,7 @@ body.blackout-mode:not(.light-mode) .su-pp-mid{border-color:rgba(255,23,68,.16);
 .su-pp-num::-webkit-inner-spin-button,
 .su-pp-num::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
 body.neon-mode .su-pp-num{color:var(--c-menu);text-shadow:0 0 18px rgba(255,179,0,.4);}
-body.blackout-mode:not(.light-mode) .su-pp-num{color:#FF1744;text-shadow:0 0 12px rgba(255,23,68,.4);}
+body.blackout-mode .su-pp-num{color:#FF1744;text-shadow:0 0 12px rgba(255,23,68,.4);}
 
 .su-pp-lbl{
   font-family:'Space Grotesk',sans-serif;font-size:9px;
@@ -1137,7 +1137,7 @@ body.blackout-mode:not(.light-mode) .su-pp-num{color:#FF1744;text-shadow:0 0 12p
 }
 .su-group-pill.show{opacity:1;transform:none;pointer-events:auto;}
 
-body.blackout-mode:not(.light-mode) .su-group-pill{border-color:rgba(255,23,68,.2);background:rgba(255,23,68,.04);}
+body.blackout-mode .su-group-pill{border-color:rgba(255,23,68,.2);background:rgba(255,23,68,.04);}
 .su-group-pill-icon{font-size:13px;flex-shrink:0;}
 .su-group-pill-text{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--muted);line-height:1.45;}
 
@@ -1240,8 +1240,8 @@ body.blackout-mode:not(.light-mode) .su-group-pill{border-color:rgba(255,23,68,.
 .su-cta-btn:hover{transform:translateY(-1px);box-shadow:0 0 38px rgba(255,179,0,.35),0 8px 28px rgba(0,0,0,.5);}
 
 
-body.blackout-mode:not(.light-mode) .su-cta-btn{background:#FF1744;color:#06030A;box-shadow:0 0 22px rgba(255,23,68,.3),0 4px 18px rgba(0,0,0,.4);}
-body.blackout-mode:not(.light-mode) .su-cta-btn:hover{background:#FF4569;box-shadow:0 0 36px rgba(255,23,68,.5);}
+body.blackout-mode .su-cta-btn{background:#FF1744;color:#06030A;box-shadow:0 0 22px rgba(255,23,68,.3),0 4px 18px rgba(0,0,0,.4);}
+body.blackout-mode .su-cta-btn:hover{background:#FF4569;box-shadow:0 0 36px rgba(255,23,68,.5);}
 body.neon-mode .su-cta-btn{box-shadow:0 0 36px rgba(255,179,0,.36),0 4px 20px rgba(0,0,0,.4);}
 
 /* Setup step animations */
@@ -1271,518 +1271,6 @@ body.neon-mode .su-cta-btn{box-shadow:0 0 36px rgba(255,179,0,.36),0 4px 20px rg
    LIGHT + BLACKOUT combined — full overrides
    ══════════════════════════════════════════════════════════════════ */
 
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT MODE — Apple / Linear Day Mode
-   ══════════════════════════════════════════════════════════════════ */
-
-body.light-mode {
-  --bg: #F2F2F7;
-  --bg2: #E5E5EA;
-  --surface: #FFFFFF;
-  --surface2: #F2F2F7;
-  --surface3: #E5E5EA;
-  --text: #1C1C1E;
-  --text2: #3A3A3C;
-  --muted: #8E8E93;
-  --border: rgba(60,60,67,.12);
-  --border2: rgba(60,60,67,.06);
-  --card-cream: #1C1C1E;
-  --panel-bg: #FFFFFF;
-  --accent-primary: #007AFF;
-  --accent-glow: rgba(0,122,255,.1);
-  --progress-bg: rgba(60,60,67,.1);
-  --progress-fill: linear-gradient(90deg,#007AFF,#5856D6);
-  --shadow-card: 0 2px 20px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
-  --shadow-btn: 0 1px 2px rgba(0,0,0,.06);
-  --bg-gradient: none;
-  background: var(--bg);
-  color: var(--text);
-}
-
-/* Remove neon atmospheric layers */
-body.light-mode::before { background: none !important; animation: none !important; }
-body.light-mode::after  { opacity: 0 !important; }
-body.light-mode .scanlines { display: none; }
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: SPLASH SCREEN
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode #splash {
-  background: var(--bg);
-  /* Subtle iOS-style dot grid */
-  background-image: radial-gradient(circle, rgba(60,60,67,.09) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-body.light-mode .sp-deco { display: none; }
-
-/* Eyebrow — iOS system label style */
-body.light-mode .sp-eyebrow {
-  color: #007AFF;
-  letter-spacing: 4px;
-  font-weight: 600;
-  font-size: 10px;
-}
-
-/* Title */
-body.light-mode .sp-title {
-  color: var(--text);
-  text-shadow: none;
-  font-weight: 800;
-}
-body.light-mode .sp-title-accent {
-  background: linear-gradient(135deg, #007AFF 0%, #5856D6 55%, #AF52DE 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  filter: none;
-}
-
-/* Rule line */
-body.light-mode .sp-rule {
-  background: linear-gradient(90deg, #007AFF, #5856D6);
-  box-shadow: none;
-  opacity: .5;
-}
-
-/* Subtitle */
-body.light-mode .sp-sub { color: var(--muted); }
-
-/* Play CTA — Apple-style filled pill */
-body.light-mode .sp-play {
-  background: #007AFF;
-  color: #FFFFFF;
-  border-radius: 14px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 20px rgba(0,122,255,.28), 0 1px 4px rgba(0,122,255,.16);
-  transition: all .2s cubic-bezier(.4,0,.2,1);
-}
-body.light-mode .sp-play:hover {
-  background: #0071E3;
-  transform: translateY(-1px) scale(1.01);
-  box-shadow: 0 8px 28px rgba(0,122,255,.35);
-}
-body.light-mode .sp-play::before { display: none; }
-
-/* Lang buttons */
-body.light-mode .lang-btn {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-}
-body.light-mode .lang-btn:hover {
-  background: var(--surface2);
-  color: var(--text);
-  border-color: rgba(60,60,67,.2);
-}
-body.light-mode .lang-btn.active {
-  background: #007AFF;
-  color: #FFFFFF;
-  border-color: #007AFF;
-  box-shadow: 0 2px 8px rgba(0,122,255,.2);
-}
-
-/* Mode (theme) toggle button */
-body.light-mode .sp-mode-btn {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-}
-body.light-mode .sp-mode-btn:hover {
-  background: var(--surface2);
-  color: var(--text);
-  border-color: rgba(60,60,67,.2);
-}
-
-/* Mode pills */
-body.light-mode .sp-mode-pill {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-}
-body.light-mode .sp-mode-pill:hover { background: var(--surface2); color: var(--text); }
-body.light-mode .sp-mode-pill-bt.active {
-  border-color: #007AFF;
-  background: rgba(0,122,255,.07);
-  color: #007AFF;
-  box-shadow: 0 2px 8px rgba(0,122,255,.1);
-}
-body.light-mode .sp-mode-pill-bk.active {
-  border-color: #FF3B30;
-  background: rgba(255,59,48,.07);
-  color: #FF3B30;
-  box-shadow: 0 2px 8px rgba(255,59,48,.1);
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: GAME SCREEN — TOPBAR / CONTROLS
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .home-btn,
-body.light-mode .cat-btn,
-body.light-mode .mode-toggle {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-}
-body.light-mode .home-btn:hover,
-body.light-mode .cat-btn:hover,
-body.light-mode .mode-toggle:hover {
-  background: var(--surface2);
-  border-color: rgba(60,60,67,.2);
-  color: var(--text);
-}
-
-/* Category panel dropdown */
-body.light-mode .cat-panel {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-}
-body.light-mode .cat-option { color: var(--muted); }
-body.light-mode .cat-option:hover { background: var(--surface2); color: var(--text); }
-body.light-mode .cat-option input:checked ~ .cat-check { background: rgba(0,122,255,.1); border-color: #007AFF; }
-body.light-mode .cat-option input:checked ~ .cat-check svg { stroke: #007AFF; opacity: 1; }
-body.light-mode .cat-divider { background: var(--border); }
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: PLAYERS BAR
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .players {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-}
-body.light-mode .player-btn { color: var(--muted); }
-body.light-mode .player-btn.active {
-  background: #007AFF;
-  color: #FFFFFF;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,122,255,.25);
-}
-body.light-mode .player-btn[data-dist="0"] { color: #FFFFFF; }
-body.light-mode .add-player-btn,
-body.light-mode .remove-player-btn {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-}
-body.light-mode .add-player-btn:hover,
-body.light-mode .remove-player-btn:hover {
-  border-color: #007AFF;
-  color: #007AFF;
-  background: rgba(0,122,255,.06);
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: DECK & GHOST CARDS
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .ghost {
-  background: rgba(255,255,255,.7);
-  border-color: rgba(60,60,67,.08);
-  box-shadow: 0 2px 12px rgba(0,0,0,.05);
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: CARD BACK — Clean iOS card feel
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .card-back {
-  background: #FFFFFF;
-  border: 1px solid rgba(60,60,67,.1);
-  box-shadow: 0 4px 24px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.04);
-}
-body.light-mode .card-back::before { display: none; }
-body.light-mode .card-back.wildcard-back {
-  background: linear-gradient(158deg, #F5F0FF 0%, #FFFFFF 50%, #EEF2FF 100%);
-  border-color: rgba(88,86,214,.15);
-  box-shadow: 0 4px 24px rgba(88,86,214,.1), 0 1px 4px rgba(0,0,0,.04);
-}
-body.light-mode .back-badge {
-  color: #007AFF;
-  font-weight: 600;
-  letter-spacing: 3px;
-  font-size: 9px;
-  text-shadow: none;
-}
-body.light-mode .back-orb {
-  border-color: rgba(0,122,255,.15);
-  background: rgba(0,122,255,.04);
-  box-shadow: none;
-}
-body.light-mode .back-title { color: var(--text); font-family: 'Space Grotesk', sans-serif; }
-body.light-mode .back-sub   { color: var(--muted); }
-body.light-mode .back-swipe { color: var(--muted); opacity: .45; }
-body.light-mode .back-hint  { color: rgba(60,60,67,.22); letter-spacing: 2px; }
-
-/* Wildcard back — soft indigo shimmer */
-body.light-mode .card-back.wildcard-back .back-badge,
-body.light-mode .card-back.wildcard-back .back-title,
-body.light-mode .card-back.wildcard-back .back-sub {
-  background: linear-gradient(110deg, #007AFF 0%, #5856D6 40%, #AF52DE 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  animation: shimmerText 4s linear infinite;
-  filter: none;
-}
-body.light-mode .card-back.wildcard-back .back-hint,
-body.light-mode .card-back.wildcard-back .back-swipe {
-  -webkit-text-fill-color: unset;
-  background: none;
-  color: rgba(88,86,214,.35);
-  animation: none;
-}
-/* ══ LIGHT: blackout-back — crimson identity, NOT black ══ */
-body.light-mode .card-back.blackout-back {
-  background: linear-gradient(158deg, #FFF0F0 0%, #FFE0DE 50%, #FFF4F4 100%) !important;
-  border-color: rgba(255,59,48,.18) !important;
-  box-shadow: 0 4px 24px rgba(255,59,48,.1), 0 1px 4px rgba(0,0,0,.04) !important;
-}
-body.light-mode .card-back.blackout-back .back-badge { color: #FF3B30; }
-body.light-mode .card-back.blackout-back .back-title { color: #7F1D1D; }
-body.light-mode .card-back.blackout-back .back-sub   { color: #CC0011; }
-body.light-mode .card-back.blackout-back .back-hint  { color: rgba(255,59,48,.22); }
-body.light-mode .card-back.blackout-back .back-orb   {
-  border-color: rgba(255,59,48,.2);
-  background: rgba(255,59,48,.05);
-}
-
-/* ══ LIGHT: game screen bg + splash bg — hard values, no var() risk ══ */
-body.light-mode,
-body.light-mode #game,
-body.light-mode #splash,
-body.light-mode #done {
-  background-color: #F2F2F7;
-}
-/* Suppress the atmospheric gradient & noise completely */
-body.light-mode::before { background: none !important; }
-body.light-mode::after  { opacity: 0 !important; }
-
-/* ══ LIGHT: back-orb default ══ */
-body.light-mode .back-orb {
-  border-color: rgba(0,122,255,.14);
-  background: rgba(0,122,255,.04);
-  box-shadow: none;
-}
-
-/* ══ LIGHT: inner-frame on card back ══ */
-body.light-mode .card-back .inner-frame {
-  border-color: rgba(60,60,67,.06);
-}
-
-/* ══ LIGHT: corner decorations on back ══ */
-body.light-mode .card-back .corner-tl,
-body.light-mode .card-back .corner-tr,
-body.light-mode .card-back .corner-bl,
-body.light-mode .card-back .corner-br {
-  color: rgba(60,60,67,.14);
-  text-shadow: none;
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: CARD FRONT — wc-* class CSS (fallback if JS inline clears)
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .card-front { border-radius: var(--radius-card); }
-body.light-mode .inner-frame { border-color: rgba(255,255,255,.4) !important; }
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: SWIPE INDICATORS
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .sw-yes {
-  background: rgba(255,255,255,.96);
-  border-color: rgba(0,122,255,.2);
-  color: #007AFF;
-  box-shadow: 0 2px 12px rgba(0,0,0,.08);
-}
-body.light-mode .sw-no {
-  background: rgba(255,255,255,.96);
-  border-color: rgba(255,59,48,.2);
-  color: #FF3B30;
-  box-shadow: 0 2px 12px rgba(0,0,0,.08);
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: PROGRESS BAR
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .prog-bar { background: rgba(60,60,67,.08); }
-body.light-mode .prog-fill { box-shadow: none; }
-body.light-mode .prog-txt { color: var(--muted); font-weight: 500; }
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: ACTION BUTTONS
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .ghost-btn {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-}
-body.light-mode .ghost-btn:hover {
-  background: var(--surface2);
-  border-color: rgba(60,60,67,.2);
-  color: var(--text);
-}
-body.light-mode .ghost-btn:disabled { opacity: .28; }
-body.light-mode .ghost-btn.primary {
-  background: #007AFF;
-  color: #FFFFFF;
-  border-color: transparent;
-  box-shadow: 0 4px 16px rgba(0,122,255,.25), 0 1px 3px rgba(0,122,255,.15);
-}
-body.light-mode .ghost-btn.primary:hover {
-  background: #0071E3;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(0,122,255,.32);
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: DONE SCREEN
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode #done { background: var(--bg); }
-body.light-mode .done-icon {
-  background: rgba(0,122,255,.08);
-  border-color: rgba(0,122,255,.15);
-}
-body.light-mode .done-icon svg { stroke: #007AFF; filter: none; }
-body.light-mode #done h2 { color: var(--text); }
-body.light-mode #done p  { color: var(--muted); }
-body.light-mode #doneStats {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  box-shadow: 0 1px 3px rgba(0,0,0,.05);
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: NAME EDIT OVERLAY
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode .name-edit-overlay {
-  background: rgba(0,0,0,.3);
-  backdrop-filter: blur(12px) saturate(1.8);
-  -webkit-backdrop-filter: blur(12px) saturate(1.8);
-}
-body.light-mode .name-edit-box {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: 0 20px 60px rgba(0,0,0,.12), 0 4px 16px rgba(0,0,0,.06);
-}
-body.light-mode .name-edit-label { color: var(--muted); }
-body.light-mode .name-edit-input {
-  background: var(--surface2);
-  border-color: var(--border);
-  color: var(--text);
-}
-body.light-mode .name-edit-input:focus { border-color: #007AFF; }
-body.light-mode .name-edit-save { background: #007AFF; color: #FFFFFF; }
-body.light-mode .name-edit-cancel { border-color: var(--border); color: var(--muted); }
-
-/* ══════════════════════════════════════════════════════════════════
-   LIGHT: SETUP SCREEN
-   ══════════════════════════════════════════════════════════════════ */
-body.light-mode #setup { background: var(--bg); }
-body.light-mode .su-back,
-body.light-mode .su-theme-btn {
-  background: var(--surface);
-  border-color: var(--border);
-  color: var(--muted);
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-}
-body.light-mode .su-back:hover,
-body.light-mode .su-theme-btn:hover {
-  background: var(--surface2);
-  border-color: rgba(60,60,67,.2);
-  color: var(--text);
-  box-shadow: none;
-}
-body.light-mode .su-dot { background: rgba(60,60,67,.12); }
-body.light-mode .su-dot.active { background: #007AFF; width: 20px; }
-body.light-mode .su-topbar { background: #F2F2F7; }
-body.light-mode .su-label {
-  color: #8E8E93;
-  font-size: 8px;
-  letter-spacing: 3px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-body.light-mode .su-player-picker {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,.06);
-}
-body.light-mode .su-pp-btn { color: var(--muted); }
-body.light-mode .su-pp-btn:hover:not(:disabled) { color: #007AFF; background: rgba(0,122,255,.05); }
-body.light-mode .su-pp-mid { border-color: var(--border); }
-body.light-mode .su-pp-num { color: var(--text); text-shadow: none; font-weight: 800; }
-body.light-mode .su-pp-lbl { color: var(--muted); }
-body.light-mode .su-group-pill { border-color: rgba(88,86,214,.15); background: rgba(88,86,214,.04); }
-body.light-mode .su-group-pill-text { color: var(--muted); }
-body.light-mode .su-mode-card { background: var(--surface); border-color: var(--border); box-shadow: 0 1px 3px rgba(0,0,0,.05); }
-body.light-mode .su-mode-card.bt { border-color: rgba(0,122,255,.15); }
-body.light-mode .su-mode-card.bk { border-color: rgba(255,59,48,.15); }
-body.light-mode .su-mode-card.bt:hover,
-body.light-mode .su-mode-card.bt.chosen {
-  border-color: #007AFF;
-  background: rgba(0,122,255,.04);
-  box-shadow: 0 4px 16px rgba(0,122,255,.1);
-}
-body.light-mode .su-mode-card.bk:hover,
-body.light-mode .su-mode-card.bk.chosen {
-  border-color: #FF3B30;
-  background: rgba(255,59,48,.04);
-  box-shadow: 0 4px 16px rgba(255,59,48,.1);
-}
-body.light-mode .su-mode-card.bt.chosen .su-mode-check { background: #007AFF; border-color: #007AFF; }
-body.light-mode .su-mode-card.bk.chosen .su-mode-check { background: #FF3B30; border-color: #FF3B30; }
-body.light-mode .su-mode-name { color: var(--text); }
-body.light-mode .su-mode-desc { color: var(--muted); }
-body.light-mode .su-mode-check { border-color: rgba(60,60,67,.15); }
-body.light-mode .su-cat-item {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
-}
-body.light-mode .su-cat-item.on { border-color: var(--cat-color); }
-body.light-mode .su-cat-desc { color: var(--muted); }
-body.light-mode .su-picker-sticky { background: #F2F2F7; }
-body.light-mode .su-steps { background: #F2F2F7; }
-body.light-mode .su-step { background: #F2F2F7; }
-body.light-mode #setup { background: #F2F2F7 !important; }
-body.light-mode .su-name-tile {
-  background: var(--surface);
-  border-color: var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
-}
-body.light-mode .su-name-tile:focus-within { border-color: #007AFF; }
-body.light-mode .su-name-tile-label { color: var(--muted); }
-body.light-mode .su-name-tile-input { color: var(--text); }
-body.light-mode .su-name-tile-remove { background: var(--surface2); border-color: var(--border); color: var(--muted); }
-body.light-mode .su-cta-btn {
-  background: #007AFF;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0,122,255,.25);
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-body.light-mode .su-cta-btn:hover {
-  background: #0071E3;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(0,122,255,.3);
-}
-
 
 
 /* ── Setup sticky picker block ── */
@@ -1794,7 +1282,7 @@ body.light-mode .su-cta-btn:hover {
 }
 
 body.neon-mode .su-picker-sticky{background:var(--bg);}
-body.blackout-mode:not(.light-mode) .su-picker-sticky{background:#060309;}
+body.blackout-mode .su-picker-sticky{background:#060309;}
 
 
 /* ── Setup player name grid ── */
@@ -1809,7 +1297,7 @@ body.blackout-mode:not(.light-mode) .su-picker-sticky{background:#060309;}
   transition:border-color .2s;
 }
 .su-name-tile:focus-within{border-color:var(--c-menu);}
-body.blackout-mode:not(.light-mode) .su-name-tile:focus-within{border-color:#FF1744;}
+body.blackout-mode .su-name-tile:focus-within{border-color:#FF1744;}
 .su-name-tile-label{
   font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:600;
   letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
@@ -1832,7 +1320,7 @@ body.blackout-mode:not(.light-mode) .su-name-tile:focus-within{border-color:#FF1
   transition:background .15s,color .15s,border-color .15s;
 }
 .su-name-tile-remove:hover{background:#FF1744;border-color:#FF1744;color:#fff;}
-body.blackout-mode:not(.light-mode) .su-name-tile-remove{border-color:rgba(255,23,68,.3);}
+body.blackout-mode .su-name-tile-remove{border-color:rgba(255,23,68,.3);}
 
 /* ── In-game: remove specific player button on active pill ── */
 .player-btn .p-remove{
@@ -1860,9 +1348,6 @@ body.blackout-mode:not(.light-mode) .su-name-tile-remove{border-color:rgba(255,2
   <div class="sp-top-row">
     <button class="lang-btn active" id="langEN" onclick="setLanguage('EN')">EN</button>
     <button class="lang-btn" id="langES" onclick="setLanguage('ES')">ES</button>
-    <button class="sp-mode-btn" onclick="toggleMode()" title="Toggle theme">
-      <svg id="spModeIcon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
-    </button>
   </div>
   <div class="sp-eyebrow" id="spEyebrow">card game</div>
   <div class="sp-title">Breaking<span class="sp-title-accent">Talk</span></div>
@@ -3179,10 +2664,6 @@ const ADAPTIVE_CARDS = [
   {j12:"¿Qué extrañarías si desapareciera de tu vida?",group:"¿Qué suele dar la gente por sentado hasta que alguien desaparece de su vida?"},
   {j12:"¿Qué energía saco de ti?",group:"¿Qué tipo de energía pueden sacar ciertas personas de ti?"},
   {j12:"¿Qué crees que necesito escuchar ahora mismo?",group:"¿Qué crees que la gente necesita escuchar más seguido?"},
-  // CONNECTION (EN) - gentle quality
-  {j12:"What is a gentle quality you've noticed in me that I might not value enough in myself?",group:"What is a gentle quality you've noticed in the person to your left that they might not value enough?"},
-  // SIN FILTRO (ES) - cualidad gentil
-  {j12:"¿Cuál es una cualidad gentil que has notado en mí que tal vez yo no valore lo suficiente?",group:"¿Cuál es una cualidad gentil que has notado en la persona a tu izquierda que tal vez ella no valore lo suficiente?"},
   // also match the SIN FILTRO variants that appear as-is in the deck
   {j12:"¿Qué es algo que siempre me has querido decir pero nunca te has atrevido?",group:"¿Qué es algo que siempre has querido decirle a alguien de este cuarto pero nunca lo hiciste?"},
   {j12:"¿De qué manera crees que podríamos hacer más fuerte nuestra amistad?",group:"¿Cuál sería una forma de que las personas de este cuarto construyan amistades más fuertes?"},
@@ -3386,124 +2867,33 @@ function showFront() {
   front.className = front.className.replace(/\bwc-\S+/g,'').trim();
   if (wcClass) front.classList.add(wcClass);
 
+  // Always neon mode
+  front.style.background = catData.neonBg || catData.color;
+  front.style.boxShadow = `0 0 40px ${catData.neonColor}55,0 0 80px ${catData.neonColor}22,0 20px 60px rgba(0,0,0,0.7)`;
   const fr = front.querySelector('.inner-frame');
+  if (fr) fr.style.borderColor = `${catData.neonColor}50`;
+
   const textEls = [document.getElementById('catLbl'),document.getElementById('catIcon'),document.getElementById('qTxt')];
   const cornerEls = front.querySelectorAll('.corner-tl,.corner-tr,.corner-bl,.corner-br');
 
-  // Light category palettes: [bg, accentBar, textColor, labelColor, shadow]
-  // Light mode card palettes — derived from neon hues, light-washed.
-  // Each entry: bg (gradient), accent (border/chip color), text (question), label (cat chip), shadow
-  // Wildcard = crimson + platinum metallic text treatment
-  // Blackout specials = distinct identities, never black
-
-  function neonToLight(neonHex, catKey) {
-    // Map every category by neonColor to a light pastel tinted card
-    const map = {
-      // Regular categories
-      '#FF2D9E': { bg:'linear-gradient(158deg,#FFF0F8 0%,#FFD6ED 55%,#FFF0F8 100%)', accent:'#E0187A', text:'#5C0030', label:'#D01472', shadow:'rgba(224,24,122,.16)' }, // GLITCH SOCIAL / MOMENTO HUMILDE — hot pink
-      '#00FF9E': { bg:'linear-gradient(158deg,#EDFFF7 0%,#C8FFE8 55%,#EDFFF7 100%)', accent:'#00A35A', text:'#003D21', label:'#007A44', shadow:'rgba(0,163,90,.16)' },  // HUMAN RADAR / VIBE CHECK — emerald
-      '#00BFFF': { bg:'linear-gradient(158deg,#EEF9FF 0%,#CCF0FF 55%,#EEF9FF 100%)', accent:'#0099CC', text:'#003A52', label:'#007AA3', shadow:'rgba(0,153,204,.16)' }, // CONNECTION / SIN FILTRO — sky blue
-      '#7B7FFF': { bg:'linear-gradient(158deg,#F2F0FF 0%,#DDD8FF 55%,#F2F0FF 100%)', accent:'#4A4FE0', text:'#12155C', label:'#3A3FC8', shadow:'rgba(74,79,224,.16)' }, // IDENTITY / ESENCIA — periwinkle
-      '#CC44FF': { bg:'linear-gradient(158deg,#F9F0FF 0%,#EDCCFF 55%,#F9F0FF 100%)', accent:'#9B00E0', text:'#36006B', label:'#8000C0', shadow:'rgba(155,0,224,.16)' }, // RABBIT HOLE — violet
-      '#FF6B1A': { bg:'linear-gradient(158deg,#FFF4EE 0%,#FFE0CC 55%,#FFF4EE 100%)', accent:'#E05000', text:'#5C1A00', label:'#C44400', shadow:'rgba(224,80,0,.16)' },  // CHAOTIC HYPOTHETICALS — orange
-      '#FFD700': { bg:'linear-gradient(158deg,#FFFBEA 0%,#FFF3B0 55%,#FFFBEA 100%)', accent:'#B8920A', text:'#3D2D00', label:'#9A7808', shadow:'rgba(184,146,10,.16)' }, // STORIES / STORYTIME — gold
-      '#FF3355': { bg:'linear-gradient(158deg,#FFF0F2 0%,#FFD6DC 55%,#FFF0F2 100%)', accent:'#CC0022', text:'#5C0010', label:'#AA001C', shadow:'rgba(204,0,34,.16)' },  // SPARK / LA CHISPA — crimson-rose
-      // Blackout specials — distinct identities
-      '#FF1744': { bg:'linear-gradient(158deg,#FFF0F0 0%,#FFD0D0 55%,#FFF0F0 100%)', accent:'#CC0011', text:'#5C0008', label:'#AA000E', shadow:'rgba(204,0,17,.18)', platinum:true }, // BLACKOUT / WILDCARD — crimson
-      '#FF6D00': { bg:'linear-gradient(158deg,#FFF4E8 0%,#FFE0BB 55%,#FFF4E8 100%)', accent:'#D45500', text:'#5C2000', label:'#B34700', shadow:'rgba(212,85,0,.18)' },  // EMOTIONAL DAMAGE / CHAOS — deep orange
-      '#FFB800': { bg:'linear-gradient(158deg,#FFFAED 0%,#FFEDB0 55%,#FFFAED 100%)', accent:'#B8860A', text:'#3D2A00', label:'#967008', shadow:'rgba(184,134,10,.16)' }, // DRINKING — amber gold
-      '#FF3F8D': { bg:'linear-gradient(158deg,#FFF0F6 0%,#FFD0E8 55%,#FFF0F6 100%)', accent:'#D01464', text:'#5C0028', label:'#AA1054', shadow:'rgba(208,20,100,.16)' }, // SHOTS — rose
-      '#FF7722': { bg:'linear-gradient(158deg,#FFF3EC 0%,#FFDFC0 55%,#FFF3EC 100%)', accent:'#D46010', text:'#5C2200', label:'#B35010', shadow:'rgba(212,96,16,.16)' }, // GROUP DRINKING — burnt orange
-      '#FF1055': { bg:'linear-gradient(158deg,#FFF0F3 0%,#FFD0DA 55%,#FFF0F3 100%)', accent:'#C80040', text:'#5C0020', label:'#A60035', shadow:'rgba(200,0,64,.16)' },  // GROUP SHOTS — deep rose
-      '#A855F7': { bg:'linear-gradient(158deg,#F8F0FF 0%,#EACDFF 55%,#F8F0FF 100%)', accent:'#7C2FD0', text:'#2D0060', label:'#6824B0', shadow:'rgba(124,47,208,.16)' }, // STATUS — purple
-      '#39FF14': { bg:'linear-gradient(158deg,#F0FFED 0%,#CCFFC4 55%,#F0FFED 100%)', accent:'#1A9900', text:'#063300', label:'#147A00', shadow:'rgba(26,153,0,.16)' },  // MINIGAME — lime green
-    };
-    return map[neonHex] || { bg:'linear-gradient(158deg,#F5F5F7 0%,#E8E8EC 55%,#F5F5F7 100%)', accent:'#636366', text:'#1C1C1E', label:'#48484A', shadow:'rgba(0,0,0,.1)' };
-  }
-
-  const lightPalette = neonToLight(catData.neonColor, wcClass);
-
-  // Wildcard override: crimson red card + platinum metallic text
-  const isWildcardLight = currentMode === 'light' && (wcClass === 'wc-bwildcard' || item.type === 'wildcard');
-
-  if (currentMode === 'light') {
-    if (isWildcardLight) {
-      // WILDCARD / BLACKOUT wildcard = deep crimson card + platinum metallic text
-      front.style.background = 'linear-gradient(158deg,#7B0018 0%,#A50020 45%,#8D0020 100%)';
-      front.style.boxShadow = '0 12px 48px rgba(185,0,35,.45), 0 2px 12px rgba(140,0,20,.25)';
-      if (fr) fr.style.borderColor = 'rgba(255,180,180,.22)';
-      // Platinum metallic shimmer on text
-      const platinumGrad = 'linear-gradient(108deg,#C0C0C0 0%,#E8E8E8 20%,#FFFFFF 35%,#D4D4D4 50%,#A8A8A8 65%,#E0E0E0 80%,#C0C0C0 100%)';
-      [document.getElementById('qTxt'), document.getElementById('catLbl'), document.getElementById('catIcon')].forEach(el => {
-        if (!el) return;
-        el.classList.remove('wildcard-q-shine');
-        el.style.background = platinumGrad;
-        el.style.backgroundSize = '200% auto';
-        el.style.webkitBackgroundClip = 'text';
-        el.style.backgroundClip = 'text';
-        el.style.webkitTextFillColor = 'transparent';
-        el.style.animation = 'shimmerText 3s linear infinite';
-        el.style.textShadow = '';
-        el.style.color = '';
-      });
-      cornerEls.forEach(c => {
-        c.classList.remove('wildcard-q-shine');
-        c.style.color = 'rgba(200,180,180,.3)';
-        c.style.textShadow = '';
-      });
-    } else {
-      // Regular light mode: pastel tinted card
-      front.style.background = lightPalette.bg;
-      front.style.boxShadow = `0 12px 40px ${lightPalette.shadow}, 0 2px 8px rgba(0,0,0,.05)`;
-      if (fr) fr.style.borderColor = `${lightPalette.accent}28`;
-
-      // Clear any platinum styling from previous card
-      [document.getElementById('qTxt'), document.getElementById('catLbl'), document.getElementById('catIcon')].forEach(el => {
-        if (!el) return;
-        el.classList.remove('wildcard-q-shine');
-        el.style.background = '';
-        el.style.backgroundSize = '';
-        el.style.webkitBackgroundClip = '';
-        el.style.backgroundClip = '';
-        el.style.webkitTextFillColor = '';
-        el.style.animation = '';
-        el.style.textShadow = '';
-      });
-      document.getElementById('qTxt').style.color = lightPalette.text;
-      document.getElementById('catLbl').style.color = lightPalette.label;
-      document.getElementById('catIcon').style.color = lightPalette.label;
-      if (document.getElementById('statusModifier')) document.getElementById('statusModifier').style.color = lightPalette.label;
-      cornerEls.forEach(c => {
-        c.classList.remove('wildcard-q-shine');
-        c.style.color = `${lightPalette.accent}28`;
-        c.style.textShadow = '';
-      });
-    }
+  if (isWc) {
+    textEls.forEach(el=>{el.classList.add('wildcard-q-shine');el.style.color='';el.style.textShadow='';});
+    cornerEls.forEach(c=>{c.classList.add('wildcard-q-shine');c.style.color='';c.style.textShadow='';});
   } else {
-    // Neon / default mode
-    front.style.background = catData.neonBg || catData.color;
-    front.style.boxShadow = `0 0 40px ${catData.neonColor}55,0 0 80px ${catData.neonColor}22,0 20px 60px rgba(0,0,0,0.7)`;
-    if (fr) fr.style.borderColor = `${catData.neonColor}50`;
-
-    if (isWc) {
-      textEls.forEach(el=>{el.classList.add('wildcard-q-shine');el.style.color='';el.style.textShadow='';});
-      cornerEls.forEach(c=>{c.classList.add('wildcard-q-shine');c.style.color='';c.style.textShadow='';});
-    } else {
-      textEls.forEach(el=>{
-        el.classList.remove('wildcard-q-shine');
-        el.style.color = '#FFFFFF';
-        el.style.textShadow = `0 0 8px rgba(255,255,255,0.35)`;
-      });
-      if (catData.neonColor) {
-        document.getElementById('catLbl').style.textShadow = `0 0 10px ${catData.neonColor}CC,0 0 20px ${catData.neonColor}66`;
-        document.getElementById('catIcon').style.textShadow = `0 0 12px ${catData.neonColor}CC`;
-      }
-      cornerEls.forEach(c=>{
-        c.classList.remove('wildcard-q-shine');
-        c.style.color='rgba(255,255,255,0.6)';
-        c.style.textShadow = `0 0 6px ${catData.neonColor||'rgba(255,255,255,0.4)'}88`;
-      });
+    textEls.forEach(el=>{
+      el.classList.remove('wildcard-q-shine');
+      el.style.color = '#FFFFFF';
+      el.style.textShadow = `0 0 8px rgba(255,255,255,0.35)`;
+    });
+    if (catData.neonColor) {
+      document.getElementById('catLbl').style.textShadow = `0 0 10px ${catData.neonColor}CC,0 0 20px ${catData.neonColor}66`;
+      document.getElementById('catIcon').style.textShadow = `0 0 12px ${catData.neonColor}CC`;
     }
+    cornerEls.forEach(c=>{
+      c.classList.remove('wildcard-q-shine');
+      c.style.color='rgba(255,255,255,0.6)';
+      c.style.textShadow = `0 0 6px ${catData.neonColor||'rgba(255,255,255,0.4)'}88`;
+    });
   }
 
   document.getElementById('cardInner').classList.add('flipped');
@@ -4349,23 +3739,17 @@ function renderEffectsTray(){
 }
 
 // ══════════════════════════════════════════════════════════════════
-//  MODO VISUAL — neon | light
+//  MODO VISUAL (neon only)
 // ══════════════════════════════════════════════════════════════════
-const SVG_NEON=`<polygon points="13 2 3 14 11 14 9 22 21 10 13 10 15 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
-const SVG_SUN=`<circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`;
-
 function applyMode(mode){
-  currentMode = (mode==='light') ? 'light' : 'neon';
-  localStorage.setItem('bt-mode', currentMode);
-  document.body.classList.toggle('neon-mode', currentMode === 'neon');
-  document.body.classList.toggle('light-mode', currentMode === 'light');
-  const svg = currentMode === 'light' ? SVG_NEON : SVG_SUN;
-  ['modeIcon','spModeIcon','suThemeIcon'].forEach(id=>{const el=document.getElementById(id);if(el) el.innerHTML=svg;});
+  currentMode = 'neon';
+  localStorage.setItem('bt-mode','neon');
+  document.body.classList.add('neon-mode');
+  const neon=`<polygon points="13 2 3 14 11 14 9 22 21 10 13 10 15 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  ['modeIcon','spModeIcon','suThemeIcon'].forEach(id=>{const el=document.getElementById(id);if(el) el.innerHTML=neon;});
   if(idx < deck.length && flipped) showFront();
 }
-function toggleMode(){
-  applyMode(currentMode === 'light' ? 'neon' : 'light');
-}
+function toggleMode(){applyMode('neon');}
 
 // ══════════════════════════════════════════════════════════════════
 //  TOUCH / DRAG
@@ -4450,7 +3834,7 @@ function applyLanguageData(lang) {
 
 (function init(){
   const savedMode=localStorage.getItem('bt-mode');
-  applyMode(savedMode==='light' ? 'light' : 'neon');
+  applyMode('neon');
   blackoutMode=localStorage.getItem('bt-blackout-mode')==='1';
   document.body.classList.toggle('blackout-mode',blackoutMode);
   splashMode = blackoutMode ? 'bk' : 'bt';
